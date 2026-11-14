@@ -1,0 +1,45 @@
+---
+// A printable sheet with both QR codes. They encode the short language-neutral URLs
+// (/spotcheck/, /stylesphere/), which forward to the visitor's language.
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/global.css';
+import { projects, person } from '../data/site';
+import { absolute, href, qrSvg } from '../lib/url';
+
+const cards = await Promise.all(
+  projects.map(async (p) => {
+    const url = absolute(`${p.id}/`);
+    return { p, url, svg: await qrSvg(url) };
+  }),
+);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QR · {person.name}</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href={href('favicon.svg')} type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="qr-sheet">
+      <header>
+        <h1>{person.name}</h1>
+        <button class="btn" type="button" onclick="window.print()">Imprimir · Print</button>
+      </header>
+      <div class="qr-grid">
+        {cards.map(({ p, url, svg }) => (
+          <article>
+            <Fragment set:html={svg} />
+            <h2>{p.name}</h2>
+            <p>Android APK · Web</p>
+            <code>{url.replace(/^https?:\/\//, '')}</code>
+          </article>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>

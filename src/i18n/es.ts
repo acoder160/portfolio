@@ -1,0 +1,171 @@
+export default {
+  htmlLang: 'es',
+  meta: {
+    title: 'Andrii Chaika — Desarrollador full-stack y móvil',
+    description:
+      'Apps Android, webs y backend de principio a fin. Dos productos publicados: SpotCheck (mapa de spots de skate) y StyleSphere (tienda de moda con Stripe).',
+  },
+  skip: 'Saltar al contenido',
+  nav: { work: 'Proyectos', stack: 'Stack', about: 'Sobre mí', contact: 'Contacto', menu: 'Menú', close: 'Cerrar' },
+  langName: 'Español',
+  otherLang: { code: 'en', label: 'EN', name: 'English' },
+  hero: {
+    role: 'Desarrollador full-stack y móvil',
+    lede:
+      'Diseño, programo y publico apps Android y webs, junto con el backend que las sostiene. De la idea a un APK que puedes instalar hoy.',
+    ctaWork: 'Ver proyectos',
+    ctaContact: 'Escríbeme',
+    facts: ['Pamplona, España', 'ES · EN · RU · UK', 'Disponible para proyectos'],
+    phonesAlt: 'Capturas de SpotCheck y StyleSphere en un móvil Android',
+  },
+  work: {
+    label: 'Proyectos',
+    title: 'Dos productos completos, de la base de datos a la tienda de apps.',
+  },
+  meta_labels: { role: 'Rol', platforms: 'Plataformas', backend: 'Backend', years: 'Años', languages: 'Idiomas' },
+  projects: {
+    spotcheck: {
+      kicker: 'Mapa colaborativo de spots de skate',
+      lede:
+        'Para el skater que llega a una ciudad que no conoce. Cada spot entra con una foto hecha en el sitio y fijada dentro del radio GPS, así que el mapa solo muestra lugares donde alguien ha estado de verdad.',
+      meta: {
+        role: 'Todo el producto: diseño, API, apps y despliegue',
+        platforms: 'Android · Web · API REST',
+        backend: 'Spring Boot + PostGIS',
+        languages: '21, con árabe (RTL)',
+      },
+      benefit:
+        'Lo que puedo hacer para ti con esto: apps con mapa y geolocalización, contenido de usuarios moderado con IA, datos en tiempo real y varios idiomas desde el primer día.',
+      notes: [
+        ['Sesiones que no se pueden robar fácilmente', 'Token de acceso de 15 min y refresh tokens rotativos guardados como hash. Si alguien reutiliza uno antiguo, el servidor revoca toda la familia de sesiones.'],
+        ['«Estoy aquí» solo vale en el sitio', 'El check-in se valida en el servidor con PostGIS (300 m) y los contadores llegan en directo a todos los mapas por WebSocket, siempre después del commit.'],
+        ['IA con correa', 'Sugiere tipo y nivel a partir de la foto, detecta spots duplicados (distancia, nombre parecido y comparación de fotos) y modera texto e imágenes. Si ningún proveedor responde, la app sigue funcionando.'],
+        ['21 idiomas desde una sola fuente', 'Las traducciones se validan y se sincronizan en la web y en la app, incluido el árabe con diseño de derecha a izquierda.'],
+        ['Probado en cada push', '160 tests con JUnit y Testcontainers sobre PostGIS real. GitHub Actions comprueba backend, imagen Docker, web y móvil.'],
+      ],
+    },
+    stylesphere: {
+      kicker: 'Tienda de moda: app Android + web',
+      lede:
+        'Una tienda de ropa completa en dos plataformas sobre el mismo backend: catálogo, carrito, pago con Stripe y un panel de administración que cualquiera puede probar sin tocar datos reales.',
+      meta: {
+        role: 'Desarrollo completo de app, web y backend',
+        platforms: 'Android (Expo) · Web (Next.js)',
+        backend: 'Supabase + Stripe',
+        languages: 'ES · EN · RU · UA',
+      },
+      benefit:
+        'Lo que puedo hacer para ti con esto: tu propia tienda en web y en móvil, cobros reales con Stripe y un panel para gestionar productos y pedidos tú mismo.',
+      notes: [
+        ['El precio lo decide el servidor', 'Antes de crear el pago, una Edge Function recalcula el carrito (precios, stock, cupón y envío). El webhook de Stripe marca el pedido como pagado.'],
+        ['Panel de admin que se puede regalar', 'Cada visitante recibe su propia sandbox, aislada en la base de datos con Row Level Security. Se borra al cerrar sesión o a las 24 horas.'],
+        ['Cupones y referidos sin código en el cliente', 'Los códigos de bienvenida y las recompensas por invitar los emiten triggers de PostgreSQL tras el primer pedido pagado.'],
+        ['Un checkout que no frustra', 'Direcciones con autocompletado y mapa, teléfono y código postal validados por país, y guía de tallas en cm y pulgadas.'],
+        ['Web que funciona sin JavaScript', 'Los filtros son un formulario GET: cada vista filtrada es un enlace que se puede compartir. Tests con Jest, Vitest, Playwright y Maestro.'],
+      ],
+    },
+  },
+  notesTitle: 'Decisiones técnicas',
+  stackTitle: 'Tecnologías',
+  actions: {
+    live: 'Abrir la web',
+    apk: 'Descargar APK',
+    code: 'Código en GitHub',
+    privateCode: 'Código privado, disponible bajo petición',
+  },
+  shots: {
+    rail: 'capturas de pantalla',
+    hint: 'Desliza · {n} pantallas',
+    sc_spot_bcn: 'Ficha de un spot: foto, tipo, nivel, distancia y check-in en directo',
+    sc_map_bcn: 'Mapa de Barcelona con los spots por tipo',
+    sc_filters: 'Filtros por tipo, distancia y valoración',
+    sc_lang: 'Selector de idioma con 21 idiomas',
+    web_sc_spot: 'Ficha del spot sobre el mapa',
+    web_sc_map: 'Mapa a pantalla completa',
+    ss_product: 'Ficha de producto con colores y tallas',
+    ss_list: 'Categoría con filtros',
+    ss_dash: 'Panel de admin: ventas y más vendidos (datos de demo)',
+    web_ss_home: 'Portada con campañas',
+    web_ss_product: 'Ficha de producto',
+  },
+  stack: {
+    label: 'Stack',
+    title: 'Con qué trabajo',
+    intro: 'Solo lo que he usado en producción en estos dos proyectos.',
+    groups: [
+      ['Móvil', 'React Native, Expo, TypeScript, Android (APK y AAB), notificaciones push'],
+      ['Frontend', 'React 19, Next.js, Vite, CSS moderno, i18n con RTL, accesibilidad'],
+      ['Backend', 'Java 21 y Spring Boot 3, Supabase Edge Functions, REST, WebSocket'],
+      ['Datos', 'PostgreSQL, PostGIS, Row Level Security, Flyway, SQL a mano'],
+      ['Integraciones', 'Stripe, Cloudinary, Google OAuth, Groq y OpenAI, Open-Meteo'],
+      ['Calidad y despliegue', 'Docker, GitHub Actions, Render, Vercel, Neon, Sentry, JUnit, Testcontainers, Jest, Vitest, Playwright, Maestro'],
+    ],
+  },
+  about: {
+    label: 'Sobre mí',
+    title: 'Hola, soy Andrii.',
+    body: [
+      'Vivo en Pamplona. Terminé el Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM) y ahora estudio Ingeniería Informática en la UNED.',
+      'Antes de programar trabajé de cara al público: recepción en Dublín con Erasmus+ y hostelería. De ahí viene cómo trabajo con clientes: escucho, pregunto y explico las cosas sin jerga.',
+    ],
+    photoAlt: 'Andrii Chaika en Pamplona',
+    eduTitle: 'Formación',
+    edu: [
+      ['Grado en Ingeniería Informática', 'UNED · en curso'],
+      ['CFGS Desarrollo de Aplicaciones Multiplataforma', 'María Ana Sanz, Pamplona · terminado'],
+      ['CFGM Comercio y Marketing', 'Colegio Técnico Carlos III · 2022 — 2024'],
+    ],
+    langTitle: 'Idiomas',
+    langs: [
+      ['Español', 'muy alto'],
+      ['Inglés', 'B2'],
+      ['Ruso', 'nativo'],
+      ['Ucraniano', 'nativo'],
+    ],
+  },
+  services: {
+    label: 'Qué puedo hacer por ti',
+    items: [
+      ['Apps Android', 'De la idea al APK o a Google Play, con React Native y Expo.'],
+      ['Tiendas online', 'Catálogo, carrito y pagos reales con Stripe, en web y en móvil.'],
+      ['Paneles de administración', 'Para gestionar productos, pedidos y contenido sin tocar código.'],
+      ['APIs y backend', 'Autenticación, bases de datos, tiempo real e integraciones con IA.'],
+    ],
+  },
+  contact: {
+    label: 'Contacto',
+    title: 'Cuéntame tu proyecto.',
+    lede: 'Escríbeme qué quieres construir, para cuándo lo necesitas y, si lo tienes, un presupuesto orientativo. Respondo en español, inglés, ruso o ucraniano.',
+    processTitle: 'Cómo trabajamos',
+    process: [
+      'Me cuentas la idea y hablamos de qué hace falta de verdad.',
+      'Te propongo alcance, plazos y precio por escrito.',
+      'Ves el avance en tu propio móvil o navegador mientras lo construyo.',
+    ],
+    cta: 'Escríbeme',
+    copy: 'Copiar email',
+    copied: 'Copiado',
+  },
+  footer: { made: 'Diseñado y programado por Andrii Chaika con Astro, GSAP y Lenis.', top: 'Volver arriba' },
+  apkPage: {
+    back: 'Volver al portfolio',
+    label: 'Instalar en Android',
+    download: 'Descargar APK',
+    version: 'Versión',
+    size: 'Tamaño',
+    wifi: 'Mejor con Wi-Fi',
+    steps: [
+      'Pulsa «Descargar APK» desde el móvil Android.',
+      'Abre el archivo descargado. La primera vez, Android te pedirá permitir instalar apps desde el navegador o el gestor de archivos.',
+      'Instala y abre la app. Puedes desinstalarla cuando quieras.',
+    ],
+    qrTitle: '¿Estás en el ordenador?',
+    qrText: 'Escanea el código con la cámara del móvil para abrir esta página allí.',
+    webAlt: 'O pruébala en el navegador, sin instalar nada:',
+    demo: {
+      spotcheck: 'Sin cuenta: pulsa «Probar demo» en la pantalla de inicio de sesión.',
+      stylesphere: 'Pagos de prueba con la tarjeta 4242 4242 4242 4242 (cualquier fecha futura y CVC). Activa el panel de admin de demo en «Cuenta».',
+    },
+    note: 'El APK se publica en GitHub Releases. Como no viene de Google Play, Android pide confirmación antes de instalarlo.',
+  },
+};

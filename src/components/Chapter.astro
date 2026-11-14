@@ -1,0 +1,113 @@
+---
+import Phone from './Phone.astro';
+import Browser from './Browser.astro';
+import type { Lang, Project } from '../data/site';
+import { t } from '../i18n';
+import { href } from '../lib/url';
+import { icon } from '../lib/icons';
+
+interface Props {
+  lang: Lang;
+  project: Project;
+}
+const { lang, project: p } = Astro.props;
+const d = t(lang);
+const c = d.projects[p.id];
+const L = d.meta_labels;
+const shot = (id: string) => (d.shots as Record<string, string>)[id] ?? p.name;
+
+// Phone first so the rail opens on a full screen, then alternate web and app.
+const [phone0, ...phones] = p.phones;
+const frames = [
+  { kind: 'phone', id: phone0 },
+  { kind: 'web', id: p.browser[0] },
+  ...phones.map((id) => ({ kind: 'phone', id })),
+  { kind: 'web', id: p.browser[1] },
+];
+---
+
+<section class={`chapter chapter--${p.id}`} id={p.id} aria-labelledby={`${p.id}-title`}>
+  <div class="wrap">
+    <h2 class="chapter-name" id={`${p.id}-title`} data-split>{p.name}</h2>
+    {p.id === 'spotcheck' ? (
+      <div class="paint-stripe" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+    ) : (
+      <div class="hairline" aria-hidden="true" />
+    )}
+    <p class="chapter-sub">{c.kicker}</p>
+
+    <div class="grid chapter-intro">
+      <div class="chapter-copy" data-reveal>
+        <p class="chapter-lede">{c.lede}</p>
+        <p class="chapter-benefit">{c.benefit}</p>
+      </div>
+      <dl class="chapter-meta" data-reveal>
+        <dt class="label">{L.role}</dt><dd>{c.meta.role}</dd>
+        <dt class="label">{L.platforms}</dt><dd>{c.meta.platforms}</dd>
+        <dt class="label">{L.backend}</dt><dd>{c.meta.backend}</dd>
+        <dt class="label">{L.languages}</dt><dd>{c.meta.languages}</dd>
+        <dt class="label">{L.years}</dt><dd>{p.years}</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="rail" data-rail tabindex="0" role="region" aria-label={`${p.name}: ${d.shots.rail}`}>
+    <ul class="rail-track" data-rail-track>
+      {frames.map((f) => (
+        <li>
+          <figure>
+            {f.kind === 'phone' ? (
+              <Phone shot={f.id} alt={shot(f.id)} />
+            ) : (
+              <Browser shot={f.id} url={p.live.label} alt={shot(f.id)} />
+            )}
+            <figcaption aria-hidden="true">
+              <span class="label">{f.kind === 'phone' ? 'Android' : 'Web'}</span> {shot(f.id)}
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="wrap">
+    <p class="rail-hint" aria-hidden="true">
+      <Fragment set:html={icon.swipe} /> {d.shots.hint.replace('{n}', String(frames.length))}
+    </p>
+  </div>
+
+  <div class="wrap">
+    <div class="grid notes">
+      <h3 class="notes-title" data-split>{d.notesTitle}</h3>
+      <ol class="notes-list" data-reveal-group>
+        {c.notes.map(([title, text]) => (
+          <li data-reveal>
+            <h4>{title}</h4>
+            <p>{text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="grid chapter-foot">
+      <div class="chips" data-reveal>
+        <p class="label">{d.stackTitle}</p>
+        <ul>{p.stack.map((s) => <li>{s}</li>)}</ul>
+      </div>
+      <div class="chapter-actions" data-reveal>
+        <a class="btn btn--accent" href={href(`${lang}/${p.id}/`)}>
+          {d.actions.apk} <Fragment set:html={icon.download} />
+        </a>
+        <a class="btn btn--ghost" href={p.live.url} target="_blank" rel="noopener">
+          {d.actions.live} <Fragment set:html={icon.external} />
+        </a>
+        {p.repo ? (
+          <a class="btn btn--ghost" href={p.repo} target="_blank" rel="noopener">
+            {d.actions.code} <Fragment set:html={icon.external} />
+          </a>
+        ) : (
+          <span class="private">{d.actions.privateCode}</span>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

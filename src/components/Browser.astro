@@ -1,0 +1,15 @@
+---
+import { href } from '../lib/url';
+
+interface Props {
+  shot: string;
+  alt: string;
+  url: string;
+}
+const { shot, alt, url } = Astro.props;
+---
+
+<div class="browser">
+  <div class="browser-bar" aria-hidden="true"><i><b></b></i><span>{url}</span></div>
+  <img src={href(`shots/${shot}.webp`)} alt={alt} width="1600" height="1000" loading="lazy" decoding="async" />
+</div>

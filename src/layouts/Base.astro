@@ -1,0 +1,97 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/global.css';
+import { person, type Lang } from '../data/site';
+import { t } from '../i18n';
+import { href, absolute } from '../lib/url';
+
+interface Props {
+  lang: Lang;
+  /** Path of this page without the language prefix, e.g. "" or "spotcheck/" */
+  path?: string;
+  title?: string;
+  description?: string;
+  /** Header links point to sections of the home page */
+  home?: boolean;
+}
+
+const { lang, path = '', title, description, home = true } = Astro.props;
+const d = t(lang);
+const other = d.otherLang;
+const pageTitle = title ?? d.meta.title;
+const pageDesc = description ?? d.meta.description;
+const sectionHref = (id: string) => (home ? `#${id}` : `${href(`${lang}/`)}#${id}`);
+---
+
+<!doctype html>
+<html lang={d.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <link rel="canonical" href={absolute(`${lang}/${path}`)} />
+    <link rel="alternate" hreflang="es" href={absolute(`es/${path}`)} />
+    <link rel="alternate" hreflang="en" href={absolute(`en/${path}`)} />
+    <link rel="alternate" hreflang="x-default" href={absolute(path)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={absolute(`${lang}/${path}`)} />
+    <meta property="og:image" content={absolute('og.jpg')} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0e0e0d" />
+    <link rel="icon" href={href('favicon.svg')} type="image/svg+xml" />
+    <script is:inline>
+      // Hide reveal targets only when motion will actually run; give up after 3 s
+      // so a failed script can never leave the page blank.
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('has-motion');
+        setTimeout(function () {
+          if (!window.__motionReady) document.documentElement.classList.remove('has-motion');
+        }, 3000);
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">{d.skip}</a>
+
+    <header class:list={["site-header", { "is-solid always-solid": !home }]} data-header>
+      <div class="wrap">
+        <a class="wordmark" href={href(`${lang}/`)}>{person.name}</a>
+        <nav class="nav" aria-label={d.nav.menu}>
+          <a href={sectionHref('work')}>{d.nav.work}</a>
+          <a class="nav-optional" href={sectionHref('stack')}>{d.nav.stack}</a>
+          <a class="nav-optional" href={sectionHref('about')}>{d.nav.about}</a>
+          <a href={sectionHref('contact')}>{d.nav.contact}</a>
+          <a class="lang-switch" href={href(`${other.code}/${path}`)} hreflang={other.code} lang={other.code}>
+            <span aria-hidden="true">{other.label}</span>
+            <span class="visually-hidden">{other.name}</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© {new Date().getFullYear()} {person.name}. {d.footer.made}</p>
+        <nav aria-label="Footer">
+          <a class="text-link" href={person.github} rel="me">GitHub</a>
+          <a class="text-link" href={`mailto:${person.email}`}>Email</a>
+          <a class="text-link" href="#main">{d.footer.top}</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>

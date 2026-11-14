@@ -1,0 +1,74 @@
+---
+import Base from '../../layouts/Base.astro';
+import Phone from '../../components/Phone.astro';
+import { langs, projects, type Lang, type ProjectId } from '../../data/site';
+import { t } from '../../i18n';
+import { href, absolute, qrSvg } from '../../lib/url';
+import { icon } from '../../lib/icons';
+
+export function getStaticPaths() {
+  return langs.flatMap((lang) => projects.map((p) => ({ params: { lang, project: p.id } })));
+}
+
+const lang = Astro.params.lang as Lang;
+const id = Astro.params.project as ProjectId;
+const p = projects.find((x) => x.id === id)!;
+const d = t(lang);
+const c = d.projects[id];
+const a = d.apkPage;
+const qr = await qrSvg(absolute(`${lang}/${id}/`));
+---
+
+<Base
+  lang={lang}
+  path={`${id}/`}
+  home={false}
+  title={`${p.name} · ${a.label} — Andrii Chaika`}
+  description={c.lede}
+>
+  <section class={`chapter chapter--${id} apk`} aria-labelledby="apk-title">
+    <div class="wrap grid">
+      <div class="apk-copy">
+        <a class="apk-back label" href={href(`${lang}/#${id}`)}><Fragment set:html={icon.back} /> {a.back}</a>
+        <h1 class="chapter-name" id="apk-title">{p.name}</h1>
+        {id === 'spotcheck' ? (
+          <div class="paint-stripe" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+        ) : (
+          <div class="hairline" aria-hidden="true" />
+        )}
+        <p class="chapter-sub">{a.label}</p>
+        <p class="apk-lede">{c.lede}</p>
+
+        <div class="apk-download">
+          <a class="btn btn--accent" href={p.apk.url} download>
+            {a.download} <Fragment set:html={icon.download} />
+          </a>
+          <p class="apk-facts label">
+            <span>{a.version} {p.apk.version}</span>
+            <span>{a.size} ~{p.apk.sizeMb} MB</span>
+            <span>{a.wifi}</span>
+          </p>
+        </div>
+
+        <ol class="apk-steps">
+          {a.steps.map((s) => <li>{s}</li>)}
+        </ol>
+
+        <div class="apk-extra">
+          <p><strong>Demo.</strong> {a.demo[id]}</p>
+          <p>{a.webAlt} <a class="text-link" href={p.live.url} target="_blank" rel="noopener">{p.live.label}</a></p>
+          <p>{a.note}</p>
+        </div>
+      </div>
+
+      <aside class="apk-side">
+        <Phone shot={p.phones[0]} alt={`${p.name}. ${d.shots.phone}`} eager />
+        <div class="qr-card">
+          <Fragment set:html={qr} />
+          <h2>{a.qrTitle}</h2>
+          <p>{a.qrText}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>

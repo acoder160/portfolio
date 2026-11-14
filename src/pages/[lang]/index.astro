@@ -1,0 +1,139 @@
+---
+import Base from '../../layouts/Base.astro';
+import Phone from '../../components/Phone.astro';
+import Chapter from '../../components/Chapter.astro';
+import { langs, person, projects, type Lang } from '../../data/site';
+import { t } from '../../i18n';
+import { href } from '../../lib/url';
+import { icon } from '../../lib/icons';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const [first, last] = person.name.split(' ');
+---
+
+<Base lang={lang}>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap grid">
+      <div class="hero-copy">
+        <h1 class="hero-name" id="hero-title" data-hero-name aria-label={person.name}>
+          <span aria-hidden="true">{first}</span>
+          <span aria-hidden="true">{last}</span>
+        </h1>
+        <p class="hero-role" data-hero>{d.hero.role}</p>
+        <p class="hero-lede" data-hero>{d.hero.lede}</p>
+        <div class="hero-actions" data-hero>
+          <a class="btn" href="#work">{d.hero.ctaWork}</a>
+          <a class="btn btn--ghost" href="#contact">{d.hero.ctaContact}</a>
+        </div>
+        <ul class="hero-facts label" data-hero>
+          {d.hero.facts.map((f) => <li>{f}</li>)}
+        </ul>
+      </div>
+      <div class="hero-phones" role="img" aria-label={d.hero.phonesAlt}>
+        <div data-hero-phone><Phone shot="sc_spot_bcn" alt="" eager /></div>
+        <div data-hero-phone><Phone shot="ss_product" alt="" eager /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-intro" id="work" aria-labelledby="work-title">
+    <div class="wrap grid">
+      <h2 class="work-title" id="work-title" data-split>{d.work.title}</h2>
+    </div>
+  </section>
+
+  {projects.map((project) => <Chapter lang={lang} project={project} />)}
+
+  <section class="section services" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 class="block-title" id="services-title" data-split>{d.services.label}</h2>
+      <ul class="services-list" data-reveal-group>
+        {d.services.items.map(([name, desc]) => (
+          <li data-reveal>
+            <h3>{name}</h3>
+            <p>{desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section about" id="about" aria-labelledby="about-title">
+    <div class="wrap grid">
+      <figure class="about-photo" data-reveal>
+        <img src={href('img/andrii.webp')} alt={d.about.photoAlt} width="482" height="602" loading="lazy" decoding="async" />
+        <figcaption class="label">{person.name} · {person.city}</figcaption>
+      </figure>
+      <div class="about-copy">
+        <h2 class="about-title" id="about-title" data-split>{d.about.title}</h2>
+        {d.about.body.map((p) => <p data-reveal>{p}</p>)}
+        <div class="about-lists" data-reveal>
+          <div>
+            <h3 class="label">{d.about.eduTitle}</h3>
+            <ul>
+              {d.about.edu.map(([what, where]) => (
+                <li>{what}<span>{where}</span></li>
+              ))}
+            </ul>
+          </div>
+          <div class="langs">
+            <h3 class="label">{d.about.langTitle}</h3>
+            <ul>
+              {d.about.langs.map(([name, level]) => (
+                <li>{name}<span>{level}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="stack" aria-labelledby="stack-title">
+    <div class="wrap grid">
+      <div class="stack-head">
+        <h2 class="block-title" id="stack-title" data-split>{d.stack.title}</h2>
+        <p class="stack-intro" data-reveal>{d.stack.intro}</p>
+      </div>
+      <ul class="stack-rows" data-reveal-group>
+        {d.stack.groups.map(([name, items]) => (
+          <li data-reveal>
+            <span class="label">{name}</span>
+            <p>{items}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact-stripe" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
+      <h2 class="contact-title" id="contact-title" data-split>{d.contact.title}</h2>
+      <div class="grid contact-body">
+        <div class="contact-main">
+          <p class="contact-lede" data-reveal>{d.contact.lede}</p>
+          <a class="contact-mail" href={`mailto:${person.email}`} data-reveal>{person.email}</a>
+          <div class="contact-actions" data-reveal>
+            <a class="btn" href={`mailto:${person.email}`}>{d.contact.cta} <Fragment set:html={icon.external} /></a>
+            <button class="btn btn--ghost" type="button" data-copy={person.email} data-copied={d.contact.copied}>
+              {d.contact.copy}
+            </button>
+            <a class="btn btn--ghost" href={person.github} target="_blank" rel="noopener me">GitHub <Fragment set:html={icon.external} /></a>
+          </div>
+        </div>
+        <div class="contact-process" data-reveal>
+          <h3>{d.contact.processTitle}</h3>
+          <ol>
+            {d.contact.process.map((step) => <li>{step}</li>)}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
