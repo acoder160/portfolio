@@ -595,6 +595,7 @@ h4 {
   background: var(--c-bg);
   color: var(--c-ink);
   padding-block: clamp(72px, 10vw, 152px);
+  overflow: hidden; /* fallback for older Safari */
   overflow: clip;
 }
 
@@ -765,7 +766,9 @@ h4 {
 
 .rail figcaption {
   margin-top: 14px;
-  max-width: 34ch;
+  /* Wrap to the frame's width instead of stretching the slide (left big gaps on phones). */
+  width: 0;
+  min-width: 100%;
   color: var(--c-muted);
   font-size: 14px;
   line-height: 1.4;

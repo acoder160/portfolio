@@ -137,10 +137,11 @@ if (!reduce) {
     );
   });
 
-  /* Screens rail: on wide screens the strip drifts sideways while the chapter scrolls by,
-     so every screen passes the viewport without hijacking the scroll. */
+  /* Screens rail: the strip drifts sideways while the chapter scrolls by, on every
+     screen size, so each screen passes the viewport without hijacking the scroll.
+     With reduced motion the rail stays a native swipe strip. */
   const mm = gsap.matchMedia();
-  mm.add('(min-width: 961px) and (pointer: fine)', () => {
+  mm.add('all', () => {
     root.classList.add('rail-driven');
     const rails = [...document.querySelectorAll<HTMLElement>('[data-rail]')];
     // The page scroll moves these rails here, so they are not a keyboard scroll stop.
@@ -158,7 +159,7 @@ if (!reduce) {
             trigger: rail,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: 1,
+            scrub: desktop ? 1 : 0.4,
             invalidateOnRefresh: true,
           },
         },
