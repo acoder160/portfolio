@@ -55,7 +55,7 @@ const frames = [
     <ul class="rail-track" data-rail-track>
       {frames.map((f) => (
         <li>
-          <figure>
+          <figure class={`slide slide--${f.kind}`}>
             {f.kind === 'phone' ? (
               <Phone shot={f.id} alt={shot(f.id)} />
             ) : (

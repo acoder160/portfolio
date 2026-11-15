@@ -751,24 +751,27 @@ h4 {
   scroll-snap-align: center;
 }
 
-.rail .phone {
-  height: clamp(420px, 44vw, 640px);
+/* Each slide gets an explicit width equal to its frame, so the caption wraps
+   under the screenshot in every browser (Safari included) instead of
+   stretching the slide. Frame sizes come from --h and the frame's ratio. */
+.rail .slide {
+  --h: clamp(420px, 44vw, 640px);
+  width: calc(var(--h) * 968 / 2276);
 }
 
-.rail .browser {
-  height: clamp(240px, 33vw, 560px);
+.rail .slide--web {
+  --h: clamp(240px, 33vw, 560px);
+  width: calc(var(--h) * 1440 / 940);
 }
 
-.rail figure {
-  display: grid;
-  justify-items: start;
+.rail .slide > .phone,
+.rail .slide > .browser {
+  width: 100%;
+  height: auto;
 }
 
 .rail figcaption {
   margin-top: 14px;
-  /* Wrap to the frame's width instead of stretching the slide (left big gaps on phones). */
-  width: 0;
-  min-width: 100%;
   color: var(--c-muted);
   font-size: 14px;
   line-height: 1.4;
@@ -794,12 +797,11 @@ h4 {
 }
 
 @media (max-width: 960px) {
-  .rail .phone {
-    height: min(360px, 62svh);
+  .rail .slide {
+    --h: min(360px, 62svh);
   }
 
-  .rail .browser {
-    height: auto;
+  .rail .slide--web {
     width: min(560px, 82vw);
   }
 }
