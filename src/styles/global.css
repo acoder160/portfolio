@@ -440,6 +440,22 @@ h4 {
   width: min(300px, 62%);
 }
 
+/* Each hero phone links to its project chapter. */
+.hero-phones a {
+  display: block;
+  border-radius: 28px;
+  transition: transform 0.3s var(--ease);
+}
+
+.hero-phones a:hover {
+  transform: translateY(-6px);
+}
+
+.hero-phones a:focus-visible {
+  outline: 2px solid var(--c-ink);
+  outline-offset: 6px;
+}
+
 .hero-phones > div:first-child {
   position: relative;
   z-index: 2;
@@ -812,12 +828,16 @@ h4 {
   }
 }
 
+/* While the page scroll drifts the rail, snapping would fight it; the rail
+   still scrolls by hand (swipe, trackpad, mouse drag). */
 html.rail-driven .rail {
-  overflow: visible;
+  scroll-snap-type: none;
+  cursor: grab;
 }
 
-html.rail-driven .rail-hint {
-  display: none;
+html.rail-driven .rail.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .notes {

@@ -34,9 +34,9 @@ const [first, last] = person.name.split(' ');
           {d.hero.facts.map((f) => <li>{f}</li>)}
         </ul>
       </div>
-      <div class="hero-phones" role="img" aria-label={d.hero.phonesAlt}>
-        <div data-hero-phone><Phone shot="sc_spot_bcn" alt="" eager /></div>
-        <div data-hero-phone><Phone shot="ss_product" alt="" eager /></div>
+      <div class="hero-phones">
+        <div data-hero-phone><a href="#spotcheck" aria-label="SpotCheck"><Phone shot="sc_spot_bcn" alt="" eager /></a></div>
+        <div data-hero-phone><a href="#stylesphere" aria-label="StyleSphere"><Phone shot="ss_product" alt="" eager /></a></div>
       </div>
     </div>
   </section>

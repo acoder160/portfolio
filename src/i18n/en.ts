@@ -5,7 +5,7 @@ const en: typeof es = {
   meta: {
     title: 'Andrii Chaika — Full-stack & mobile developer',
     description:
-      'Android apps, websites and the backend behind them, end to end. Two shipped products: SpotCheck (a skate spot map) and StyleSphere (a fashion store with Stripe).',
+      'Android and iOS apps, websites and the backend behind them, end to end. Two shipped products: SpotCheck (a skate spot map) and StyleSphere (a fashion store with Stripe).',
   },
   skip: 'Skip to content',
   nav: { work: 'Work', stack: 'Stack', about: 'About', contact: 'Contact', menu: 'Menu', close: 'Close' },
@@ -14,7 +14,7 @@ const en: typeof es = {
   hero: {
     role: 'Full-stack & mobile developer',
     lede:
-      'I design, build and ship Android apps and websites, together with the backend that runs them. From the idea to an APK you can install today.',
+      'I design, build and ship Android and iOS apps and websites, together with the backend that runs them. From the idea to an APK you can install today.',
     ctaWork: 'See the work',
     ctaContact: 'Get in touch',
     facts: ['Pamplona, Spain', 'ES · EN · RU · UK', 'Open to projects'],
@@ -32,7 +32,7 @@ const en: typeof es = {
         'For skaters landing in a city they don’t know. Every spot comes in with a photo taken on site and pinned inside the GPS radius, so the map only shows places someone has actually stood at.',
       meta: {
         role: 'The whole product: design, API, apps and deployment',
-        platforms: 'Android · Web · REST API',
+        platforms: 'Android · iOS · Web · REST API',
         backend: 'Spring Boot + PostGIS',
         languages: '21, including Arabic (RTL)',
       },
@@ -47,12 +47,12 @@ const en: typeof es = {
       ],
     },
     stylesphere: {
-      kicker: 'A fashion store: Android app + website',
+      kicker: 'A fashion store: Android and iOS app + website',
       lede:
         'A complete clothing store on two platforms sharing one backend: catalogue, cart, Stripe payments and an admin panel anyone can try without touching real data.',
       meta: {
         role: 'Full development of app, website and backend',
-        platforms: 'Android (Expo) · Web (Next.js)',
+        platforms: 'Android and iOS (Expo) · Web (Next.js)',
         backend: 'Supabase + Stripe',
         languages: 'ES · EN · RU · UA',
       },
@@ -79,7 +79,8 @@ const en: typeof es = {
     rail: 'screenshots',
     hint: 'Swipe · {n} screens',
     sc_spot_bcn: 'Spot sheet: photo, type, level, distance and live check-in',
-    sc_map_bcn: 'Barcelona map with spots by type',
+    sc_map_gornal: 'Spot preview on the map, with the route to it',
+    sc_spot_detail: 'Average rating, your vote and threaded comments',
     sc_filters: 'Filters by type, distance and rating',
     sc_lang: 'Language picker with 21 languages',
     web_sc_spot: 'Spot sheet over the map',
@@ -95,7 +96,7 @@ const en: typeof es = {
     title: 'What I work with',
     intro: 'Only what I have shipped to production in these two projects.',
     groups: [
-      ['Mobile', 'React Native, Expo, TypeScript, Android (APK and AAB), push notifications'],
+      ['Mobile', 'React Native, Expo, TypeScript, Android (APK and AAB), iOS, push notifications'],
       ['Frontend', 'React 19, Next.js, Vite, modern CSS, i18n with RTL, accessibility'],
       ['Backend', 'Java 21 and Spring Boot 3, Supabase Edge Functions, REST, WebSocket'],
       ['Data', 'PostgreSQL, PostGIS, Row Level Security, Flyway, hand-written SQL'],
@@ -113,9 +114,9 @@ const en: typeof es = {
     photoAlt: 'Andrii Chaika in Pamplona',
     eduTitle: 'Education',
     edu: [
-      ['BSc Computer Engineering', 'UNED · in progress'],
-      ['Higher Diploma, Multiplatform App Development (DAM)', 'María Ana Sanz, Pamplona · completed'],
-      ['Diploma, Commerce and Marketing', 'Colegio Técnico Carlos III · 2022 — 2024'],
+      ['BSc Computer Engineering', 'UNED, Pamplona · 2026 — present'],
+      ['Higher Diploma in Multiplatform App Development (DAM)', 'María Ana Sanz, Pamplona · 2024 — 2026'],
+      ['Diploma in Commerce and Marketing', 'Colegio Técnico Carlos III, Pamplona · 2022 — 2024'],
     ],
     langTitle: 'Languages',
     langs: [
@@ -128,7 +129,7 @@ const en: typeof es = {
   services: {
     label: 'What I can build for you',
     items: [
-      ['Android apps', 'From the idea to an APK or Google Play, with React Native and Expo.'],
+      ['Android and iOS apps', 'From the idea to Google Play and the App Store, with React Native and Expo.'],
       ['Online stores', 'Catalogue, cart and real Stripe payments, on the web and on mobile.'],
       ['Admin panels', 'To manage products, orders and content without touching code.'],
       ['APIs and backends', 'Authentication, databases, real-time features and AI integrations.'],

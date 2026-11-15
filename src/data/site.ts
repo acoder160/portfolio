@@ -33,7 +33,7 @@ export const projects: Project[] = [
     live: { url: 'https://www.spot-check.live/', label: 'spot-check.live' },
     repo: 'https://github.com/acoder160/SpotCheck',
     apk: { url: `${RELEASE}/SpotCheck-1.1.0.apk`, sizeMb: 64, version: '1.1.0' },
-    phones: ['sc_spot_bcn', 'sc_map_bcn', 'sc_filters', 'sc_lang'],
+    phones: ['sc_spot_bcn', 'sc_map_gornal', 'sc_spot_detail', 'sc_filters', 'sc_lang'],
     browser: ['web_sc_spot', 'web_sc_map'],
     stack: [
       'Java 21', 'Spring Boot 3', 'PostgreSQL', 'PostGIS', 'Flyway', 'WebSocket · STOMP',

@@ -3,7 +3,7 @@ export default {
   meta: {
     title: 'Andrii Chaika — Desarrollador full-stack y móvil',
     description:
-      'Apps Android, webs y backend de principio a fin. Dos productos publicados: SpotCheck (mapa de spots de skate) y StyleSphere (tienda de moda con Stripe).',
+      'Apps Android e iOS, webs y backend de principio a fin. Dos productos publicados: SpotCheck (mapa de spots de skate) y StyleSphere (tienda de moda con Stripe).',
   },
   skip: 'Saltar al contenido',
   nav: { work: 'Proyectos', stack: 'Stack', about: 'Sobre mí', contact: 'Contacto', menu: 'Menú', close: 'Cerrar' },
@@ -12,7 +12,7 @@ export default {
   hero: {
     role: 'Desarrollador full-stack y móvil',
     lede:
-      'Diseño, programo y publico apps Android y webs, junto con el backend que las sostiene. De la idea a un APK que puedes instalar hoy.',
+      'Diseño, programo y publico apps Android e iOS y webs, junto con el backend que las sostiene. De la idea a un APK que puedes instalar hoy.',
     ctaWork: 'Ver proyectos',
     ctaContact: 'Escríbeme',
     facts: ['Pamplona, España', 'ES · EN · RU · UK', 'Disponible para proyectos'],
@@ -30,7 +30,7 @@ export default {
         'Para el skater que llega a una ciudad que no conoce. Cada spot entra con una foto hecha en el sitio y fijada dentro del radio GPS, así que el mapa solo muestra lugares donde alguien ha estado de verdad.',
       meta: {
         role: 'Todo el producto: diseño, API, apps y despliegue',
-        platforms: 'Android · Web · API REST',
+        platforms: 'Android · iOS · Web · API REST',
         backend: 'Spring Boot + PostGIS',
         languages: '21, con árabe (RTL)',
       },
@@ -45,12 +45,12 @@ export default {
       ],
     },
     stylesphere: {
-      kicker: 'Tienda de moda: app Android + web',
+      kicker: 'Tienda de moda: app Android e iOS + web',
       lede:
         'Una tienda de ropa completa en dos plataformas sobre el mismo backend: catálogo, carrito, pago con Stripe y un panel de administración que cualquiera puede probar sin tocar datos reales.',
       meta: {
         role: 'Desarrollo completo de app, web y backend',
-        platforms: 'Android (Expo) · Web (Next.js)',
+        platforms: 'Android e iOS (Expo) · Web (Next.js)',
         backend: 'Supabase + Stripe',
         languages: 'ES · EN · RU · UA',
       },
@@ -77,7 +77,8 @@ export default {
     rail: 'capturas de pantalla',
     hint: 'Desliza · {n} pantallas',
     sc_spot_bcn: 'Ficha de un spot: foto, tipo, nivel, distancia y check-in en directo',
-    sc_map_bcn: 'Mapa de Barcelona con los spots por tipo',
+    sc_map_gornal: 'Vista previa del spot sobre el mapa, con la ruta hasta él',
+    sc_spot_detail: 'Valoración media, tu voto y comentarios con respuestas',
     sc_filters: 'Filtros por tipo, distancia y valoración',
     sc_lang: 'Selector de idioma con 21 idiomas',
     web_sc_spot: 'Ficha del spot sobre el mapa',
@@ -93,7 +94,7 @@ export default {
     title: 'Con qué trabajo',
     intro: 'Solo lo que he usado en producción en estos dos proyectos.',
     groups: [
-      ['Móvil', 'React Native, Expo, TypeScript, Android (APK y AAB), notificaciones push'],
+      ['Móvil', 'React Native, Expo, TypeScript, Android (APK y AAB), iOS, notificaciones push'],
       ['Frontend', 'React 19, Next.js, Vite, CSS moderno, i18n con RTL, accesibilidad'],
       ['Backend', 'Java 21 y Spring Boot 3, Supabase Edge Functions, REST, WebSocket'],
       ['Datos', 'PostgreSQL, PostGIS, Row Level Security, Flyway, SQL a mano'],
@@ -111,9 +112,9 @@ export default {
     photoAlt: 'Andrii Chaika en Pamplona',
     eduTitle: 'Formación',
     edu: [
-      ['Grado en Ingeniería Informática', 'UNED · en curso'],
-      ['CFGS Desarrollo de Aplicaciones Multiplataforma', 'María Ana Sanz, Pamplona · terminado'],
-      ['CFGM Comercio y Marketing', 'Colegio Técnico Carlos III · 2022 — 2024'],
+      ['Grado en Ingeniería Informática', 'UNED, Pamplona · 2026 — actualidad'],
+      ['CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)', 'María Ana Sanz, Pamplona · 2024 — 2026'],
+      ['CFGM Comercio y Marketing', 'Colegio Técnico Carlos III, Pamplona · 2022 — 2024'],
     ],
     langTitle: 'Idiomas',
     langs: [
@@ -126,7 +127,7 @@ export default {
   services: {
     label: 'Qué puedo hacer por ti',
     items: [
-      ['Apps Android', 'De la idea al APK o a Google Play, con React Native y Expo.'],
+      ['Apps Android e iOS', 'De la idea a Google Play y App Store, con React Native y Expo.'],
       ['Tiendas online', 'Catálogo, carrito y pagos reales con Stripe, en web y en móvil.'],
       ['Paneles de administración', 'Para gestionar productos, pedidos y contenido sin tocar código.'],
       ['APIs y backend', 'Autenticación, bases de datos, tiempo real e integraciones con IA.'],

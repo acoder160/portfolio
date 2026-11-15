@@ -137,37 +137,63 @@ if (!reduce) {
     );
   });
 
-  /* Screens rail: the strip drifts sideways while the chapter scrolls by, on every
-     screen size, so each screen passes the viewport without hijacking the scroll.
-     With reduced motion the rail stays a native swipe strip. */
+  /* Screens rail: a native horizontal scroller everywhere. While the chapter
+     passes, the page scroll nudges it sideways, but it never takes it over: a
+     swipe, trackpad or mouse drag moves it by hand and the drift carries on from
+     there. With reduced motion it stays a plain swipe strip. */
   const mm = gsap.matchMedia();
   mm.add('all', () => {
     root.classList.add('rail-driven');
     const rails = [...document.querySelectorAll<HTMLElement>('[data-rail]')];
-    // The page scroll moves these rails here, so they are not a keyboard scroll stop.
-    rails.forEach((rail) => rail.removeAttribute('tabindex'));
-    rails.forEach((rail) => {
-      const track = rail.querySelector<HTMLElement>('[data-rail-track]');
-      if (!track) return;
-      gsap.fromTo(
-        track,
-        { x: () => Math.min(0, innerWidth * 0.08) },
-        {
-          x: () => Math.min(0, innerWidth - track.scrollWidth - innerWidth * 0.04),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: rail,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: desktop ? 1 : 0.4,
-            invalidateOnRefresh: true,
-          },
+    const cleanups = rails.map((rail) => {
+      const range = () => rail.scrollWidth - rail.clientWidth;
+      let last = -1;
+      const st = ScrollTrigger.create({
+        trigger: rail,
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: (self) => {
+          if (last < 0) rail.scrollLeft = self.progress * range();
+          else rail.scrollLeft += (self.progress - last) * range();
+          last = self.progress;
         },
-      );
+        onRefresh: () => { last = -1; },
+      });
+
+      // Mouse drag (touch and trackpads already scroll natively).
+      let startX = 0;
+      let startLeft = 0;
+      let dragging = false;
+      const down = (e: PointerEvent) => {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        dragging = true;
+        startX = e.clientX;
+        startLeft = rail.scrollLeft;
+        rail.classList.add('is-dragging');
+      };
+      const move = (e: PointerEvent) => {
+        if (dragging) rail.scrollLeft = startLeft - (e.clientX - startX);
+      };
+      const up = () => {
+        dragging = false;
+        rail.classList.remove('is-dragging');
+      };
+      const noDrag = (e: Event) => e.preventDefault();
+      rail.addEventListener('pointerdown', down);
+      rail.addEventListener('dragstart', noDrag);
+      addEventListener('pointermove', move);
+      addEventListener('pointerup', up);
+      return () => {
+        st.kill();
+        rail.removeEventListener('pointerdown', down);
+        rail.removeEventListener('dragstart', noDrag);
+        removeEventListener('pointermove', move);
+        removeEventListener('pointerup', up);
+      };
     });
     return () => {
       root.classList.remove('rail-driven');
-      rails.forEach((rail) => rail.setAttribute('tabindex', '0'));
+      cleanups.forEach((fn) => fn());
     };
   });
 
