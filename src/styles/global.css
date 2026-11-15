@@ -740,7 +740,7 @@ h4 {
 
 .rail-track {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: clamp(16px, 2vw, 32px);
   width: max-content;
   padding-inline: var(--gutter);
@@ -754,14 +754,23 @@ h4 {
 /* Each slide gets an explicit width equal to its frame, so the caption wraps
    under the screenshot in every browser (Safari included) instead of
    stretching the slide. Frame sizes come from --h and the frame's ratio. */
+.rail {
+  --ph: clamp(420px, 44vw, 640px); /* phone frame height */
+  --wh: clamp(240px, 33vw, 560px); /* web frame height */
+}
+
 .rail .slide {
-  --h: clamp(420px, 44vw, 640px);
-  width: calc(var(--h) * 968 / 2276);
+  width: calc(var(--ph) * 968 / 2276);
 }
 
 .rail .slide--web {
-  --h: clamp(240px, 33vw, 560px);
-  width: calc(var(--h) * 1440 / 940);
+  width: calc(var(--wh) * 1440 / 940);
+}
+
+/* Slides align to the top so captions of any length hang below; the shorter
+   web frames are centred on the phones' band so every screen sits on one line. */
+.rail .slide--web > .browser {
+  margin-top: max(0px, calc((var(--ph) - var(--wh)) / 2));
 }
 
 .rail .slide > .phone,
@@ -797,12 +806,9 @@ h4 {
 }
 
 @media (max-width: 960px) {
-  .rail .slide {
-    --h: min(360px, 62svh);
-  }
-
-  .rail .slide--web {
-    width: min(560px, 82vw);
+  .rail {
+    --ph: min(360px, 62svh);
+    --wh: calc(min(560px, 82vw) * 940 / 1440);
   }
 }
 
