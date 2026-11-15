@@ -108,7 +108,7 @@ const en: typeof es = {
     title: 'Hi, I’m Andrii.',
     body: [
       'I live in Pamplona, Spain. I finished a Higher Diploma in Multiplatform Application Development (DAM) and I’m now studying Computer Engineering at UNED.',
-      'Before writing code I worked with the public: front desk in Dublin on Erasmus+, and hospitality. That is how I work with clients: I listen, ask, and explain things without jargon.',
+      'Before moving into software, I studied Marketing, spent an Erasmus+ placement in Dublin—where I strengthened my English and broadened my cultural horizons—and worked at Solidus Solutions in Pamplona. That mix of business background and international perspective shapes how I approach every project.',
     ],
     photoAlt: 'Andrii Chaika in Pamplona',
     eduTitle: 'Education',
