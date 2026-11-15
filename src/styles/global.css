@@ -330,6 +330,25 @@ h4 {
   }
 }
 
+@media (max-width: 420px) {
+  .wordmark {
+    font-size: 17px;
+  }
+
+  .nav {
+    gap: 10px;
+  }
+
+  .nav a {
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+  }
+
+  .nav .lang-switch {
+    padding: 5px 9px;
+  }
+}
+
 /* ------------------------------------------------------------------
    Hero
 ------------------------------------------------------------------- */
@@ -445,8 +464,24 @@ h4 {
     grid-column: 1 / -1;
   }
 
+  /* Two phones side by side, slightly overlapped, always inside the screen. */
+  .hero-phones {
+    padding-block: 8px 32px;
+  }
+
   .hero-phones > div {
-    width: min(240px, 46%);
+    width: min(220px, 46%);
+  }
+
+  .hero-phones > div:first-child {
+    transform: translateX(6%) rotate(-3deg);
+  }
+
+  .hero-phones > div:last-child {
+    position: relative;
+    top: 28px;
+    left: auto;
+    transform: translateX(-6%) rotate(4deg);
   }
 }
 
@@ -999,12 +1034,6 @@ html.rail-driven .rail-hint {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 0.6s var(--ease);
-}
-
-.about-photo:hover img {
-  filter: none;
 }
 
 .about-photo figcaption {
@@ -1514,7 +1543,6 @@ html.has-motion [data-hero-name]:not(.is-split) {
 
 .word {
   display: inline-block;
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

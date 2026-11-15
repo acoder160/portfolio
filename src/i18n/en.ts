@@ -107,8 +107,8 @@ const en: typeof es = {
     label: 'About',
     title: 'Hi, I’m Andrii.',
     body: [
-      'I live in Pamplona, Spain. I finished a Higher Diploma in Multiplatform Application Development (DAM) and I’m now studying Computer Engineering at UNED.',
-      'Before moving into software, I studied Marketing, spent an Erasmus+ placement in Dublin—where I strengthened my English and broadened my cultural horizons—and worked at Solidus Solutions in Pamplona. That mix of business background and international perspective shapes how I approach every project.',
+      'I live in Pamplona, Spain. I did a Higher Diploma in Multiplatform App Development (DAM), and now I’m studying Computer Engineering at UNED.',
+      'Before I got into code, I studied Marketing. I spent a few months in Dublin on Erasmus+, which is where my English really clicked, and then worked at Solidus Solutions here in Pamplona. So when I build an app, I don’t just think about the code. I also think about who’s going to use it and what the business actually needs.',
     ],
     photoAlt: 'Andrii Chaika in Pamplona',
     eduTitle: 'Education',

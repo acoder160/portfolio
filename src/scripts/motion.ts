@@ -61,12 +61,18 @@ function splitWords(el: HTMLElement): HTMLElement[] {
 if (!reduce) {
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: 'power3.out', duration: 0.85 });
+  // Mobile browsers resize the viewport when the address bar hides; don't recalc on that.
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
-  /* One smooth-scroll engine, driven by GSAP's ticker so ScrollTrigger stays in sync. */
-  const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, anchors: { offset: -64 } });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
+  /* Smooth scroll only for mouse/trackpad. Touch devices keep native scrolling,
+     which is smoother there and avoids fighting the browser. */
+  const desktop = matchMedia('(min-width: 961px) and (pointer: fine)').matches;
+  if (desktop) {
+    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, anchors: { offset: -64 } });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
 
   /* Hero intro: name rises through its mask, then copy, then the phones settle. */
   const name = document.querySelector<HTMLElement>('[data-hero-name]');
@@ -80,14 +86,18 @@ if (!reduce) {
     const tl = gsap.timeline({ delay: 0.1 });
     tl.from(words, { yPercent: 110, duration: 1, ease: 'expo.out', stagger: 0.09 })
       .from('[data-hero]', { autoAlpha: 0, y: 18, stagger: 0.07, duration: 0.7 }, 0.35)
-      .from('[data-hero-phone]', { autoAlpha: 0, y: 80, duration: 1.1, ease: 'expo.out', stagger: 0.12 }, 0.25);
-    // Phones drift apart slightly as the hero leaves (well under 5% of travel).
-    gsap.to('[data-hero-phone]:first-child', {
+      .from(
+        '[data-hero-phone]',
+        { autoAlpha: 0, y: desktop ? 80 : 32, duration: desktop ? 1.1 : 0.8, ease: 'expo.out', stagger: 0.12 },
+        0.25,
+      );
+    // Phones drift apart slightly as the hero leaves (desktop only: scrubbing on touch stutters).
+    if (desktop) gsap.to('[data-hero-phone]:first-child', {
       yPercent: -4,
       ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
     });
-    gsap.to('[data-hero-phone]:last-child', {
+    if (desktop) gsap.to('[data-hero-phone]:last-child', {
       yPercent: 4,
       ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
