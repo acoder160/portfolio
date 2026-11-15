@@ -105,8 +105,8 @@ export default {
     label: 'Sobre mí',
     title: 'Hola, soy Andrii.',
     body: [
-      'Vivo en Pamplona. Hice el Grado Superior de Desarrollo de Aplicaciones Multiplataforma (DAM) y ahora sigo con Ingeniería Informática en la UNED.',
-      'Antes de programar estudié Comercio y Marketing. Pasé unos meses en Dublín con Erasmus+, donde por fin se me soltó el inglés, y luego trabajé en Solidus Solutions, aquí en Pamplona. Por eso, cuando hago una app, no pienso solo en el código: también en quién la va a usar y qué necesita el negocio.',
+      'Vivo en Pamplona. Hice el Grado Superior de DAM y ahora estoy estudiando Ingeniería Informática en la UNED.',
+      'Antes de pasarme a la informática estudié Comercio y Marketing. Estuve unos meses de Erasmus en Dublín, donde gané la confianza para trabajar en inglés, y a la vuelta trabajé en Solidus Solutions, aquí en Pamplona. Haber pasado por ahí hace que, al programar, no me fije solo en el código, sino también en quién va a usar la aplicación y en lo que busca la empresa.',
     ],
     photoAlt: 'Andrii Chaika en Pamplona',
     eduTitle: 'Formación',
