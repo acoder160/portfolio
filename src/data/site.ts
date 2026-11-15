@@ -9,7 +9,7 @@ export const person = {
 
 // APKs are attached to a release of the public portfolio repository
 // (release assets of a private repo cannot be downloaded without signing in).
-const RELEASE = 'https://github.com/acoder160/portfolio/releases/download/v1.0.0';
+const RELEASE = 'https://github.com/acoder160/portfolio/releases/download/v1.1.0';
 
 export type ProjectId = 'spotcheck' | 'stylesphere';
 
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     years: '2025 — 2026',
     live: { url: 'https://www.spot-check.live/', label: 'spot-check.live' },
     repo: 'https://github.com/acoder160/SpotCheck',
-    apk: { url: `${RELEASE}/SpotCheck-1.0.0.apk`, sizeMb: 119, version: '1.0.0' },
+    apk: { url: `${RELEASE}/SpotCheck-1.1.0.apk`, sizeMb: 64, version: '1.1.0' },
     phones: ['sc_spot_bcn', 'sc_map_bcn', 'sc_filters', 'sc_lang'],
     browser: ['web_sc_spot', 'web_sc_map'],
     stack: [
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     name: 'StyleSphere',
     years: '2025 — 2026',
     live: { url: 'https://stylesphere-beta.vercel.app/es', label: 'stylesphere-beta.vercel.app' },
-    apk: { url: `${RELEASE}/StyleSphere-1.0.0.apk`, sizeMb: 42, version: '1.0.0' },
+    apk: { url: `${RELEASE}/StyleSphere-1.1.0.apk`, sizeMb: 61, version: '1.1.0' },
     phones: ['ss_product', 'ss_list', 'ss_dash'],
     browser: ['web_ss_home', 'web_ss_product'],
     stack: [
