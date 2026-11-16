@@ -27,6 +27,9 @@ export function GET() {
     '## Experience',
     ...cv.experience.flatMap((x) => ['', `### ${x.role} · ${x.org} (${x.dates}, ${x.place})`, ...x.bullets.map((b) => `- ${b}`)]),
     '',
+    '## Other experience',
+    ...cv.other.flatMap((x) => ['', `### ${x.role} · ${x.org} (${x.dates}, ${x.place})`, ...x.bullets.map((b) => `- ${b}`)]),
+    '',
     '## Projects',
     ...projects.flatMap((p) => {
       const c = cv.projects[p.id];

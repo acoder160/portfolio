@@ -74,7 +74,7 @@ const years = (y: string) => y.replace(' — ', ' – ');
                 <p class="cv-meta"><span>{x.dates}</span> <span>{c ? c.sub : x.place}</span></p>
                 {p && c && (
                   <p class="cv-links">
-                    {cv.live}: <a href={p.live.url}>{strip(p.live.url)}</a>
+                    <a href={p.live.url}>{cv.live}</a>
                     {' · '}
                     {cv.code}: {p.repo ? <a href={p.repo}>{strip(p.repo)}</a> : cv.privateCode}
                   </p>
@@ -96,7 +96,7 @@ const years = (y: string) => y.replace(' — ', ' – ');
                 <h3><span class="cv-pname">{p.name}</span></h3>
                 <p class="cv-meta"><span>{years(p.years)}</span> <span>{c.sub}</span></p>
                 <p class="cv-links">
-                  {cv.live}: <a href={p.live.url}>{strip(p.live.url)}</a>
+                  <a href={p.live.url}>{cv.live}</a>
                   {' · '}
                   {cv.code}: {p.repo ? <a href={p.repo}>{strip(p.repo)}</a> : cv.privateCode}
                 </p>
@@ -131,6 +131,22 @@ const years = (y: string) => y.replace(' — ', ' – ');
             );
           })}
           <p class="cv-note">{cv.erasmus}</p>
+        </div>
+      </section>
+
+      <section class="cv-sec">
+        <h2>{cv.otherTitle}</h2>
+        <div class="cv-body">
+          {cv.other.map((x) => (
+            <div class="cv-entry">
+              <h3>
+                <span class="cv-role">{x.role}</span>
+                <span class="cv-at">{' · '}<a href={x.url}>{x.org}</a></span>
+              </h3>
+              <p class="cv-meta"><span>{x.dates}</span> <span>{x.place}</span></p>
+              <ul>{x.bullets.map((b) => <li>{b}</li>)}</ul>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -599,6 +615,12 @@ const years = (y: string) => y.replace(' — ', ' – ');
 
     .cv a {
       text-decoration: none;
+    }
+
+    /* "Live demo" carries no URL text, so it has to look clickable in the PDF. */
+    .cv .cv-links a {
+      text-decoration: underline;
+      text-decoration-color: currentColor;
     }
   }
 </style>
