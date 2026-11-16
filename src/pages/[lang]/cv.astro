@@ -130,7 +130,6 @@ const years = (y: string) => y.replace(' — ', ' – ');
               </div>
             );
           })}
-          <p class="cv-note">{cv.erasmus}</p>
         </div>
       </section>
 
@@ -141,7 +140,7 @@ const years = (y: string) => y.replace(' — ', ' – ');
             <div class="cv-entry">
               <h3>
                 <span class="cv-role">{x.role}</span>
-                <span class="cv-at">{' · '}<a href={x.url}>{x.org}</a></span>
+                <span class="cv-at">{' · '}{x.url ? <a href={x.url}>{x.org}</a> : x.org}</span>
               </h3>
               <p class="cv-meta"><span>{x.dates}</span> <span>{x.place}</span></p>
               <ul>{x.bullets.map((b) => <li>{b}</li>)}</ul>
@@ -236,7 +235,6 @@ const years = (y: string) => y.replace(' — ', ' – ');
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    filter: grayscale(1) contrast(1.05);
   }
 
   .cv-id {

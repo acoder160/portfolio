@@ -202,6 +202,26 @@ export default {
           'Clases de ajedrez para niños de primaria: estrategia, cálculo y planificar varias jugadas por delante, explicado de forma sencilla.',
         ],
       },
+      {
+        role: 'Recepcionista (Erasmus+)',
+        org: 'SEDA College',
+        url: '',
+        place: 'Dublín, Irlanda',
+        dates: 'mar. 2024 – may. 2024',
+        bullets: [
+          'Recepción de un college internacional, en un entorno de trabajo en inglés.',
+        ],
+      },
+      {
+        role: 'Profesor de ajedrez',
+        org: 'AD San Juan – Donibane Kirol Elkartea',
+        url: 'https://adsj-dke.com/secciones/ajedrez/',
+        place: 'Pamplona, España',
+        dates: 'nov. 2022 – may. 2024',
+        bullets: [
+          'Clases de ajedrez para niños en la escuela deportiva del club.',
+        ],
+      },
     ],
     projectsTitle: 'Proyectos',
     live: 'Demo en vivo',

@@ -204,6 +204,26 @@ const en: typeof es = {
           'Teach chess to primary-school children: strategy, calculation and planning several moves ahead, explained in simple terms.',
         ],
       },
+      {
+        role: 'Receptionist (Erasmus+ placement)',
+        org: 'SEDA College',
+        url: '',
+        place: 'Dublin, Ireland',
+        dates: 'Mar 2024 – May 2024',
+        bullets: [
+          'Front desk of an international college in an English-speaking workplace.',
+        ],
+      },
+      {
+        role: 'Chess Teacher',
+        org: 'AD San Juan – Donibane Kirol Elkartea',
+        url: 'https://adsj-dke.com/secciones/ajedrez/',
+        place: 'Pamplona, Spain',
+        dates: 'Nov 2022 – May 2024',
+        bullets: [
+          'Taught chess to children at the club’s sports school.',
+        ],
+      },
     ],
     projectsTitle: 'Projects',
     live: 'Live demo',
