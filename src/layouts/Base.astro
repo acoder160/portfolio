@@ -3,7 +3,7 @@ import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
-import { person, type Lang } from '../data/site';
+import { person, projects, type Lang } from '../data/site';
 import { t } from '../i18n';
 import { href, absolute } from '../lib/url';
 
@@ -15,14 +15,51 @@ interface Props {
   description?: string;
   /** Header links point to sections of the home page */
   home?: boolean;
+  /** Extra schema.org objects for this page (the Person is always included). */
+  schema?: Record<string, unknown>[];
 }
 
-const { lang, path = '', title, description, home = true } = Astro.props;
+const { lang, path = '', title, description, home = true, schema = [] } = Astro.props;
 const d = t(lang);
 const other = d.otherLang;
 const pageTitle = title ?? d.meta.title;
 const pageDesc = description ?? d.meta.description;
 const sectionHref = (id: string) => (home ? `#${id}` : `${href(`${lang}/`)}#${id}`);
+
+// Structured data for search engines and AI recruiters: who, what role, where, which stack.
+const personId = absolute('#person');
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: person.name,
+      jobTitle: d.cv.headline,
+      description: d.cv.summary,
+      url: absolute(`${lang}/`),
+      image: absolute('img/andrii.webp'),
+      email: `mailto:${person.email}`,
+      address: { '@type': 'PostalAddress', addressLocality: person.city, addressRegion: 'Navarra', addressCountry: person.country },
+      knowsLanguage: ['es', 'en', 'ru', 'uk'],
+      knowsAbout: projects.flatMap((p) => p.stack).filter((x, i, a) => a.indexOf(x) === i),
+      alumniOf: [
+        { '@type': 'CollegeOrUniversity', name: 'UNED' },
+        { '@type': 'EducationalOrganization', name: 'CIP María Ana Sanz' },
+      ],
+      sameAs: [person.github, person.linkedin].filter(Boolean),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': absolute('#website'),
+      url: absolute(''),
+      name: person.name,
+      inLanguage: ['es', 'en'],
+      author: { '@id': personId },
+    },
+    ...schema,
+  ],
+};
 ---
 
 <!doctype html>
@@ -35,7 +72,7 @@ const sectionHref = (id: string) => (home ? `#${id}` : `${href(`${lang}/`)}#${id
     <link rel="canonical" href={absolute(`${lang}/${path}`)} />
     <link rel="alternate" hreflang="es" href={absolute(`es/${path}`)} />
     <link rel="alternate" hreflang="en" href={absolute(`en/${path}`)} />
-    <link rel="alternate" hreflang="x-default" href={absolute(path)} />
+    <link rel="alternate" hreflang="x-default" href={absolute(path ? `en/${path}` : '')} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
@@ -45,6 +82,8 @@ const sectionHref = (id: string) => (home ? `#${id}` : `${href(`${lang}/`)}#${id
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0e0e0d" />
     <link rel="icon" href={href('favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={href('sitemap.xml')} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
     <script is:inline>
       // Hide reveal targets only when motion will actually run; give up after 3 s
       // so a failed script can never leave the page blank.

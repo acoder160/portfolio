@@ -1,21 +1,22 @@
 export default {
   htmlLang: 'es',
   meta: {
-    title: 'Andrii Chaika — Desarrollador full-stack y móvil',
+    title: 'Andrii Chaika — Desarrollador full-stack y móvil (React Native, Spring Boot)',
     description:
-      'Apps Android e iOS, webs y backend de principio a fin. Dos productos publicados: SpotCheck (mapa de spots de skate) y StyleSphere (tienda de moda con Stripe).',
+      'Desarrollador full-stack y móvil en España. Dos productos publicados de principio a fin: SpotCheck (Spring Boot, PostGIS, React Native, 21 idiomas) y StyleSphere (Next.js, Expo, Supabase, Stripe). Abierto a empleo y proyectos.',
   },
   skip: 'Saltar al contenido',
   nav: { work: 'Proyectos', stack: 'Stack', about: 'Sobre mí', contact: 'Contacto', menu: 'Menú', close: 'Cerrar' },
   langName: 'Español',
   otherLang: { code: 'en', label: 'EN', name: 'English' },
   hero: {
-    role: 'Desarrollador full-stack y móvil',
+    role: 'Desarrollador full-stack y móvil · React Native · Java/Spring Boot',
     lede:
-      'Diseño, programo y publico apps Android e iOS y webs, junto con el backend que las sostiene. De la idea a un APK que puedes instalar hoy.',
+      'Hago apps Android e iOS, webs y el backend que las mueve, y las termino: dos productos completos están publicados y puedes instalarlos hoy.',
     ctaWork: 'Ver proyectos',
+    ctaCv: 'Descargar CV',
     ctaContact: 'Escríbeme',
-    facts: ['Pamplona, España', 'ES · EN · RU · UK', 'Disponible para proyectos'],
+    facts: ['Pamplona, España · CET', 'ES · EN · RU · UK', 'Permiso de trabajo en España (TIE)', 'Abierto a empleo y proyectos'],
     phonesAlt: 'Capturas de SpotCheck y StyleSphere en un móvil Android',
   },
   work: {
@@ -35,7 +36,7 @@ export default {
         languages: '21, con árabe (RTL)',
       },
       benefit:
-        'Lo que puedo hacer para ti con esto: apps con mapa y geolocalización, contenido de usuarios moderado con IA, datos en tiempo real y varios idiomas desde el primer día.',
+        'Lo que esto significa para ti: una app con mapa y ubicación, contenido de usuarios revisado por IA, datos que se actualizan solos y tu producto en varios idiomas desde el primer día.',
       notes: [
         ['Sesiones que no se pueden robar fácilmente', 'Token de acceso de 15 min y refresh tokens rotativos guardados como hash. Si alguien reutiliza uno antiguo, el servidor revoca toda la familia de sesiones.'],
         ['«Estoy aquí» solo vale en el sitio', 'El check-in se valida en el servidor con PostGIS (300 m) y los contadores llegan en directo a todos los mapas por WebSocket, siempre después del commit.'],
@@ -49,13 +50,13 @@ export default {
       lede:
         'Una tienda de ropa completa en dos plataformas sobre el mismo backend: catálogo, carrito, pago con Stripe y un panel de administración que cualquiera puede probar sin tocar datos reales.',
       meta: {
-        role: 'Desarrollo completo de app, web y backend',
+        role: 'Proyecto freelance para un cliente privado: app, web y backend',
         platforms: 'Android e iOS (Expo) · Web (Next.js)',
         backend: 'Supabase + Stripe',
         languages: 'ES · EN · RU · UA',
       },
       benefit:
-        'Lo que puedo hacer para ti con esto: tu propia tienda en web y en móvil, cobros reales con Stripe y un panel para gestionar productos y pedidos tú mismo.',
+        'Lo que esto significa para ti: tu propia tienda en web y en el móvil, cobros reales con tarjeta y un panel para gestionar productos y pedidos sin depender de nadie.',
       notes: [
         ['El precio lo decide el servidor', 'Antes de crear el pago, una Edge Function recalcula el carrito (precios, stock, cupón y envío). El webhook de Stripe marca el pedido como pagado.'],
         ['Panel de admin que se puede regalar', 'Cada visitante recibe su propia sandbox, aislada en la base de datos con Row Level Security. Se borra al cerrar sesión o a las 24 horas.'],
@@ -106,8 +107,8 @@ export default {
     label: 'Sobre mí',
     title: 'Hola, soy Andrii.',
     body: [
-      'Vivo en Pamplona. Hice el Grado Superior de DAM y ahora estoy estudiando Ingeniería Informática en la UNED.',
-      'Antes de pasarme a la informática estudié Comercio y Marketing. Estuve unos meses de Erasmus en Dublín, donde gané la confianza para trabajar en inglés, y a la vuelta trabajé en Solidus Solutions, aquí en Pamplona. Haber pasado por ahí hace que, al programar, no me fije solo en el código, sino también en quién va a usar la aplicación y en lo que busca la empresa.',
+      'Vivo en Pamplona. Terminé el Grado Superior de DAM con prácticas en Solidus Solutions, donde desarrollé aplicaciones de empresa completas, backend y frontend, dentro del departamento de IT de una gran compañía. Ahora estudio Ingeniería Informática en la UNED y publico mis propios productos.',
+      'Llegué a la programación desde el negocio: estudié Comercio y Marketing y pasé unos meses de Erasmus en Dublín, donde me acostumbré a trabajar en inglés. Por eso, cuando programo, pienso también en quién va a usar la aplicación y en qué necesita la empresa de ella. Además, doy clases de ajedrez a niños en un colegio de Pamplona, que mantiene la costumbre de pensar varias jugadas por delante.',
     ],
     photoAlt: 'Andrii Chaika en Pamplona',
     eduTitle: 'Formación',
@@ -127,27 +128,109 @@ export default {
   services: {
     label: 'Qué puedo hacer por ti',
     items: [
-      ['Apps Android e iOS', 'De la idea a Google Play y App Store, con React Native y Expo.'],
-      ['Tiendas online', 'Catálogo, carrito y pagos reales con Stripe, en web y en móvil.'],
-      ['Paneles de administración', 'Para gestionar productos, pedidos y contenido sin tocar código.'],
-      ['APIs y backend', 'Autenticación, bases de datos, tiempo real e integraciones con IA.'],
+      ['Apps Android e iOS', 'Una sola app para los dos sistemas, del primer boceto a Google Play y App Store.'],
+      ['Tiendas online', 'Catálogo, carrito y cobros reales con tarjeta, en la web y en el móvil.'],
+      ['Paneles de administración', 'Gestiona productos, pedidos y contenido tú mismo, sin llamar a un programador.'],
+      ['Backend e integraciones', 'Cuentas de usuario, datos, mapas, pagos y funciones con IA que siguen en pie si un proveedor falla.'],
     ],
   },
   contact: {
     label: 'Contacto',
-    title: 'Cuéntame tu proyecto.',
-    lede: 'Escríbeme qué quieres construir, para cuándo lo necesitas y, si lo tienes, un presupuesto orientativo. Respondo en español, inglés, ruso o ucraniano.',
-    processTitle: 'Cómo trabajamos',
+    title: '¿Buscas desarrollador o tienes un proyecto?',
+    lede: 'Escríbeme en los dos casos. Respondo en español, inglés, ruso o ucraniano.',
+    hiringTitle: '¿Estás contratando?',
+    hiring: 'Busco un puesto a jornada completa como desarrollador full-stack o móvil: en remoto (UE/EE. UU.), híbrido o presencial con traslado. Tengo permiso de residencia y trabajo en España.',
+    cvLink: 'Ver el CV',
+    processTitle: '¿Tienes un proyecto? Así trabajamos',
     process: [
-      'Me cuentas la idea y hablamos de qué hace falta de verdad.',
+      'Me cuentas la idea, para cuándo la necesitas y, si lo tienes, un presupuesto orientativo.',
       'Te propongo alcance, plazos y precio por escrito.',
       'Ves el avance en tu propio móvil o navegador mientras lo construyo.',
     ],
     cta: 'Escríbeme',
+    cv: 'Descargar CV',
     copy: 'Copiar email',
     copied: 'Copiado',
   },
   footer: { made: 'Diseñado y programado por Andrii Chaika con Astro, GSAP y Lenis.', top: 'Volver arriba' },
+  cv: {
+    title: 'CV — Andrii Chaika, desarrollador full-stack y móvil',
+    description:
+      'Currículum de Andrii Chaika: desarrollador full-stack y móvil (React Native, Java/Spring Boot, Next.js, PostgreSQL). Pamplona, España. Permiso de trabajo (TIE).',
+    headline: 'Desarrollador full-stack y móvil · React Native · Java/Spring Boot',
+    back: 'Volver al portfolio',
+    download: 'Descargar PDF',
+    workAuth: 'Permiso de residencia y trabajo en España (TIE)',
+    availability: 'Remoto (UE/EE. UU.), híbrido o traslado · CET (UTC+1)',
+    summaryTitle: 'Perfil',
+    summary:
+      'Desarrollador full-stack y móvil con experiencia en entorno corporativo: cinco meses de prácticas desarrollando aplicaciones de empresa completas (backend y frontend) sobre Unisys BIS en Solidus Solutions. He entregado un proyecto freelance de e-commerce pagado por un cliente (app Android/iOS y web sobre Supabase con pagos Stripe) y he creado en solitario SpotCheck: una plataforma con Spring Boot y PostGIS con apps Android, iOS y web en 21 idiomas. Me encargo de todo el recorrido, del esquema de base de datos y la API al build de la app y el CI/CD. Formación previa en comercio y marketing; trabajo en español, inglés, ruso y ucraniano.',
+    skillsTitle: 'Habilidades técnicas',
+    experienceTitle: 'Experiencia',
+    experience: [
+      {
+        role: 'Profesor de ajedrez',
+        org: 'CEIP Vázquez de Mella Bayonne',
+        url: 'https://cpvazquezdemella.web.educacion.navarra.es/',
+        place: 'Pamplona, España',
+        dates: 'sept. 2026 – actualidad',
+        bullets: [
+          'Clases de ajedrez para niños de primaria: estrategia, cálculo y planificar varias jugadas por delante, explicado de forma sencilla.',
+        ],
+      },
+      {
+        role: 'Desarrollador full-stack y móvil freelance',
+        org: 'StyleSphere (cliente privado)',
+        url: 'https://stylesphere-beta.vercel.app/es',
+        place: 'Remoto',
+        dates: 'jun. 2026 – ago. 2026',
+        project: 'stylesphere',
+        bullets: [],
+      },
+      {
+        role: 'Desarrollador de software (prácticas de DAM)',
+        org: 'Solidus Solutions',
+        url: 'https://solidus.com/es/',
+        place: 'Navarra, España',
+        dates: 'feb. 2026 – jun. 2026',
+        bullets: [
+          'Desarrollo de aplicaciones de empresa completas, backend y frontend, sobre Unisys Business Information Server (BIS, antes MAPPER).',
+          'Trabajo dentro del departamento de IT de un fabricante internacional de embalaje con más de 1.400 empleados: sistemas existentes, usuarios reales y procesos de empresa.',
+        ],
+      },
+    ],
+    projectsTitle: 'Proyectos',
+    live: 'Web',
+    code: 'Código',
+    privateCode: 'código privado, disponible bajo petición',
+    projects: {
+      spotcheck: {
+        sub: 'Mapa colaborativo de spots de skate · Android, iOS y web · en solitario, de principio a fin',
+        bullets: [
+          'Diseñé y publiqué el producto completo: esquema PostgreSQL/PostGIS, API REST con Spring Boot 3, web en React y app con Expo/React Native para Android e iOS.',
+          'Autenticación con tokens de acceso JWT de 15 minutos y refresh tokens rotativos guardados como hash; reutilizar uno antiguo revoca toda la familia de sesiones.',
+          'Check-ins validados en el servidor con PostGIS (radio de 300 m) y contadores en directo en todos los mapas abiertos por WebSocket/STOMP, siempre tras el commit.',
+          'Integración de Groq y OpenAI para sugerir el tipo de spot a partir de la foto, detectar duplicados y moderar contenido, con alternativa si ningún proveedor responde.',
+          'Web y app traducidas a 21 idiomas desde una sola fuente, incluido el árabe con diseño de derecha a izquierda.',
+          '160 tests automatizados (JUnit, Testcontainers sobre PostGIS real); CI en GitHub Actions para backend, imagen Docker, web y móvil en cada push.',
+        ],
+      },
+      stylesphere: {
+        sub: 'E-commerce de moda · app Android e iOS + web en Next.js · proyecto pagado por un cliente, en solitario de principio a fin',
+        bullets: [
+          'Tienda completa en dos plataformas sobre un mismo backend Supabase: catálogo, carrito, pago con Stripe y panel de administración.',
+          'Precios calculados en el servidor: una Edge Function recalcula el carrito (stock, cupones, envío) antes del pago y un webhook de Stripe confirma el pedido.',
+          'Panel de admin de demo público: cada visitante recibe una sandbox aislada con Row Level Security de PostgreSQL que se borra a las 24 horas.',
+          'Cupones y recompensas por referidos implementados como triggers de PostgreSQL, sin lógica en el cliente.',
+          'Checkout con autocompletado de direcciones sobre mapa y validación de teléfono y código postal por país; 4 idiomas.',
+          'Tests de web y móvil con Jest, Vitest, Playwright y Maestro (E2E); errores monitorizados con Sentry.',
+        ],
+      },
+    },
+    eduTitle: 'Formación',
+    erasmus: 'Erasmus+ en Dublín (Irlanda) durante el ciclo de Comercio y Marketing',
+    langTitle: 'Idiomas',
+  },
   apkPage: {
     back: 'Volver al portfolio',
     label: 'Instalar en Android',

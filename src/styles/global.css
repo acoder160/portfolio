@@ -1584,3 +1584,7 @@ html.has-motion [data-hero-name]:not(.is-split) {
     scroll-behavior: auto !important;
   }
 }
+
+.contact-hiring {
+  margin: 14px 0 40px;
+}

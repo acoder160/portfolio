@@ -1,0 +1,604 @@
+---
+// ATS-friendly CV: plain semantic text in reading order, standard section names. The visual layer
+// (paper sheet, left-hand section rail, paint stripe) is CSS only, so parsers still read one column.
+// Also the source of the PDFs: npm run cv → public/Andrii-Chaika-CV-*.pdf (print styles below).
+import Base from '../../layouts/Base.astro';
+import { langs, person, projects, type Lang } from '../../data/site';
+import { t } from '../../i18n';
+import { href } from '../../lib/url';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const d = t(lang);
+const cv = d.cv;
+const site = new URL(import.meta.env.BASE_URL, import.meta.env.SITE);
+const strip = (u: string) => u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+const years = (y: string) => y.replace(' — ', ' – ');
+---
+
+<Base lang={lang} path="cv/" home={false} title={cv.title} description={cv.description}>
+  <div class="cv-page">
+    <div class="wrap cv-tools">
+      <a class="label text-link" href={href(`${lang}/`)}>← {cv.back}</a>
+      <a class="btn" href={href(person.cvPdf[lang])} download>{cv.download}</a>
+    </div>
+
+    <article class="cv">
+      <header class="cv-head">
+        <img
+          class="cv-photo"
+          src={href('img/andrii.webp')}
+          alt={d.about.photoAlt}
+          width="765"
+          height="956"
+          decoding="async"
+        />
+        <div class="cv-id">
+          <h1>{person.name}</h1>
+          <p class="cv-headline">{cv.headline}</p>
+        </div>
+        <div class="cv-stripe" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+        <p class="cv-contact">
+          <span>{person.city}, {lang === 'es' ? 'España' : 'Spain'}</span>
+          <a href={`mailto:${person.email}`}>{person.email}</a>
+          <a href={site.toString()}>{strip(site.toString())}</a>
+          <a href={person.github}>{strip(person.github)}</a>
+          {person.linkedin && <a href={person.linkedin}>{strip(person.linkedin)}</a>}
+        </p>
+        <p class="cv-status"><span>{cv.workAuth}</span> <span>{cv.availability}</span></p>
+      </header>
+
+      <section class="cv-sec">
+        <h2>{cv.summaryTitle}</h2>
+        <div class="cv-body">
+          <p class="cv-summary">{cv.summary}</p>
+        </div>
+      </section>
+
+      <section class="cv-sec">
+        <h2>{cv.experienceTitle}</h2>
+        <div class="cv-body">
+          {cv.experience.map((x) => {
+            // A client project listed as a job: its sub-line, links and bullets come from cv.projects.
+            const p = 'project' in x ? projects.find((q) => q.id === x.project) : undefined;
+            const c = p ? cv.projects[p.id] : undefined;
+            return (
+              <div class="cv-entry">
+                <h3>
+                  <span class="cv-role">{x.role}</span>
+                  <span class="cv-at">{' · '}<a href={x.url}>{x.org}</a></span>
+                </h3>
+                <p class="cv-meta"><span>{x.dates}</span> <span>{c ? c.sub : x.place}</span></p>
+                {p && c && (
+                  <p class="cv-links">
+                    {cv.live}: <a href={p.live.url}>{strip(p.live.url)}</a>
+                    {' · '}
+                    {cv.code}: {p.repo ? <a href={p.repo}>{strip(p.repo)}</a> : cv.privateCode}
+                  </p>
+                )}
+                <ul>{(c ? c.bullets : x.bullets).map((b) => <li>{b}</li>)}</ul>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="cv-sec">
+        <h2>{cv.projectsTitle}</h2>
+        <div class="cv-body">
+          {projects.filter((p) => !cv.experience.some((x) => 'project' in x && x.project === p.id)).map((p) => {
+            const c = cv.projects[p.id];
+            return (
+              <div class={`cv-entry cv-project cv-project--${p.id}`}>
+                <h3><span class="cv-pname">{p.name}</span></h3>
+                <p class="cv-meta"><span>{years(p.years)}</span> <span>{c.sub}</span></p>
+                <p class="cv-links">
+                  {cv.live}: <a href={p.live.url}>{strip(p.live.url)}</a>
+                  {' · '}
+                  {cv.code}: {p.repo ? <a href={p.repo}>{strip(p.repo)}</a> : cv.privateCode}
+                </p>
+                <ul>{c.bullets.map((b) => <li>{b}</li>)}</ul>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="cv-sec">
+        <h2>{cv.skillsTitle}</h2>
+        <div class="cv-body">
+          <dl class="cv-skills">
+            {d.stack.groups.map(([name, items]) => (
+              <div><dt>{name}</dt> <dd>{items}</dd></div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section class="cv-sec">
+        <h2>{cv.eduTitle}</h2>
+        <div class="cv-body">
+          {d.about.edu.map(([what, where]) => {
+            const [school, when] = where.split(' · ');
+            return (
+              <div class="cv-edu">
+                <h3><span class="cv-role">{what}</span></h3>
+                <p class="cv-meta"><span>{when}</span> <span>{school}</span></p>
+              </div>
+            );
+          })}
+          <p class="cv-note">{cv.erasmus}</p>
+        </div>
+      </section>
+
+      <section class="cv-sec">
+        <h2>{cv.langTitle}</h2>
+        <div class="cv-body">
+          <ul class="cv-langs">
+            {d.about.langs.map(([name, level]) => <li><strong>{name}</strong> {level}</li>)}
+          </ul>
+        </div>
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .cv-page {
+    --c-ink: #161614;
+    --c-muted: #57544e;
+    --c-rule: rgba(22, 22, 20, 0.16);
+    padding: calc(var(--header-h) + clamp(24px, 4vw, 56px)) 0 clamp(48px, 8vw, 120px);
+  }
+
+  .cv-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: calc(920px + 2 * var(--gutter));
+    margin: 0 auto 24px;
+  }
+
+  /* ---------- sheet ---------- */
+  .cv {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: clamp(28px, 6vw, 72px) clamp(20px, 6vw, 72px) clamp(36px, 6vw, 72px);
+    background: var(--paper);
+    color: var(--c-ink);
+    font-size: 15.5px;
+    line-height: 1.55;
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  }
+
+  .cv ::selection {
+    background: var(--c-ink);
+    color: var(--paper);
+  }
+
+  .cv a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--c-rule);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+    transition: text-decoration-color 0.2s var(--ease);
+  }
+
+  .cv a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .cv p,
+  .cv h1,
+  .cv h2,
+  .cv h3,
+  .cv ul,
+  .cv dl,
+  .cv dd {
+    margin: 0;
+  }
+
+  /* ---------- header ---------- */
+  .cv-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    column-gap: clamp(20px, 4vw, 40px);
+  }
+
+  .cv-photo {
+    grid-column: 2;
+    grid-row: 1;
+    width: clamp(92px, 16vw, 148px);
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .cv-id {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .cv h1 {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 62;
+    font-weight: 900;
+    font-size: clamp(48px, 10vw, 96px);
+    line-height: 0.86;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .cv-headline {
+    margin-top: clamp(12px, 1.6vw, 18px) !important;
+    max-width: 30ch;
+    font-size: clamp(17px, 2vw, 21px);
+    font-weight: 550;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  .cv-stripe {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 6px;
+    margin: clamp(22px, 3vw, 32px) 0 16px;
+  }
+
+  .cv-stripe i:nth-child(1) { background: var(--paint-orange); }
+  .cv-stripe i:nth-child(2) { background: var(--paint-yellow); }
+  .cv-stripe i:nth-child(3) { background: var(--paint-blue); }
+  .cv-stripe i:nth-child(4) { background: var(--paint-green); }
+  .cv-stripe i:nth-child(5) { background: var(--paint-pink); }
+
+  .cv-contact,
+  .cv-status {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 22px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .cv-status {
+    margin-top: 8px !important;
+    color: var(--c-muted);
+  }
+
+  .cv-status span:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--c-ink);
+    font-weight: 500;
+  }
+
+  .cv-status span:first-child::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--paint-green);
+  }
+
+  /* ---------- sections: heading rail + body ---------- */
+  .cv-sec {
+    display: grid;
+    grid-template-columns: 148px 1fr;
+    column-gap: 32px;
+    margin-top: clamp(30px, 4vw, 44px);
+    padding-top: 14px;
+    border-top: 1.5px solid var(--c-ink);
+  }
+
+  .cv h2 {
+    padding-top: 3px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cv-summary {
+    max-width: 68ch;
+    font-size: 16.5px;
+    line-height: 1.55;
+  }
+
+  .cv-entry + .cv-entry,
+  .cv-edu + .cv-edu {
+    margin-top: 22px;
+  }
+
+  .cv h3 {
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.3;
+  }
+
+  .cv-at {
+    font-weight: 450;
+  }
+
+  .cv-pname {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 62;
+    font-weight: 850;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .cv-project h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cv-project h3::before {
+    content: '';
+    flex: none;
+    width: 10px;
+    height: 10px;
+    background: var(--paint-orange);
+  }
+
+  .cv-project--stylesphere h3::before {
+    background: var(--ss-red);
+    border-radius: 50%;
+  }
+
+  .cv-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 18px;
+    margin-top: 4px !important;
+    color: var(--c-muted);
+    font-size: 14.5px;
+  }
+
+  .cv-meta span:first-child {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    color: var(--c-ink);
+  }
+
+  .cv-links {
+    margin-top: 4px !important;
+    font-size: 14.5px;
+    color: var(--c-muted);
+  }
+
+  .cv-links a {
+    color: var(--c-ink);
+  }
+
+  .cv ul:not(.cv-langs) {
+    max-width: 72ch;
+    margin-top: 10px;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  /* Dash drawn as a background, not a positioned ::before: positioned boxes are painted in a later
+     layer, which makes PDF text come out of reading order for ATS parsers. */
+  .cv ul:not(.cv-langs) li {
+    padding-left: 18px;
+    background: linear-gradient(currentColor, currentColor) 2px 0.72em / 7px 1.5px no-repeat;
+  }
+
+  .cv ul:not(.cv-langs) li + li {
+    margin-top: 5px;
+  }
+
+  .cv-skills > div {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    column-gap: 20px;
+    padding-block: 8px;
+    border-bottom: 1px solid var(--c-rule);
+  }
+
+  .cv-skills > div:first-child {
+    padding-top: 0;
+  }
+
+  .cv-skills dt {
+    font-weight: 650;
+  }
+
+  .cv-note {
+    margin-top: 14px !important;
+    color: var(--c-muted);
+    font-size: 14.5px;
+  }
+
+  .cv-langs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 28px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cv-langs strong {
+    font-weight: 650;
+    margin-right: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .cv-head {
+      grid-template-columns: 1fr;
+    }
+
+    .cv-photo {
+      grid-column: 1;
+      grid-row: auto;
+      margin-bottom: 20px;
+    }
+
+    .cv-id {
+      grid-row: auto;
+    }
+
+    .cv-sec,
+    .cv-skills > div {
+      grid-template-columns: 1fr;
+    }
+
+    .cv h2 {
+      margin-bottom: 12px;
+    }
+  }
+
+  /* ---------- print / PDF ---------- */
+  @media print {
+    @page {
+      size: A4;
+      margin: 12mm 13mm 12mm;
+    }
+
+    :global(html),
+    :global(body) {
+      background: #fff !important;
+    }
+
+    :global(.site-header),
+    :global(.site-footer),
+    :global(.skip),
+    .cv-tools {
+      display: none !important;
+    }
+
+    .cv-page {
+      --c-ink: #000;
+      --c-muted: #4a4741;
+      padding: 0;
+    }
+
+    .cv {
+      max-width: none;
+      padding: 0;
+      background: #fff;
+      box-shadow: none;
+      font-size: 9.6pt;
+      line-height: 1.4;
+    }
+
+    /* Photos are expected in Spain, discouraged by US/UK recruiters: keep it on the ES PDF only. */
+    :global(html[lang='en']) .cv-photo {
+      display: none;
+    }
+
+    :global(html[lang='en']) .cv-head {
+      grid-template-columns: 1fr;
+    }
+
+    .cv-photo {
+      width: 25mm;
+    }
+
+    .cv h1 {
+      font-size: 40pt;
+    }
+
+    .cv-headline {
+      font-size: 12.5pt;
+      max-width: none;
+    }
+
+    .cv-stripe {
+      height: 4px;
+      margin: 10pt 0 7pt;
+    }
+
+    .cv-contact,
+    .cv-status {
+      font-size: 8.4pt;
+    }
+
+    .cv-sec {
+      grid-template-columns: 30mm 1fr;
+      column-gap: 5mm;
+      margin-top: 11pt;
+      padding-top: 6pt;
+      border-top-width: 1px;
+    }
+
+    .cv h2 {
+      font-size: 8pt;
+      padding-top: 1pt;
+    }
+
+    .cv-summary {
+      font-size: 9.8pt;
+      max-width: none;
+    }
+
+    .cv h3 {
+      font-size: 10.4pt;
+    }
+
+    .cv-pname {
+      font-size: 13pt;
+    }
+
+    .cv-project h3::before {
+      width: 7px;
+      height: 7px;
+    }
+
+    .cv-meta,
+    .cv-links,
+    .cv-note {
+      font-size: 8.8pt;
+    }
+
+    .cv-meta span:first-child {
+      font-size: 8pt;
+    }
+
+    .cv ul:not(.cv-langs) {
+      margin-top: 4pt;
+      max-width: none;
+    }
+
+    .cv ul:not(.cv-langs) li + li {
+      margin-top: 2pt;
+    }
+
+    .cv-entry + .cv-entry,
+    .cv-edu + .cv-edu {
+      margin-top: 9pt;
+    }
+
+    .cv-entry,
+    .cv-edu {
+      break-inside: avoid;
+    }
+
+    .cv-skills > div {
+      grid-template-columns: 30mm 1fr;
+      padding-block: 3pt;
+    }
+
+    .cv a {
+      text-decoration: none;
+    }
+  }
+</style>

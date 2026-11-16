@@ -25,6 +25,19 @@ const qr = await qrSvg(absolute(`${lang}/${id}/`));
   home={false}
   title={`${p.name} · ${a.label} — Andrii Chaika`}
   description={c.lede}
+  schema={[{
+    '@type': 'SoftwareApplication',
+    name: p.name,
+    description: c.lede,
+    applicationCategory: id === 'spotcheck' ? 'TravelApplication' : 'ShoppingApplication',
+    operatingSystem: 'Android, iOS, Web',
+    url: p.live.url,
+    downloadUrl: p.apk.url,
+    softwareVersion: p.apk.version,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    author: { '@id': absolute('#person') },
+    ...(p.repo ? { codeRepository: p.repo } : {}),
+  }]}
 >
   <section class={`chapter chapter--${id} apk`} aria-labelledby="apk-title">
     <div class="wrap grid">

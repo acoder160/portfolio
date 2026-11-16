@@ -7,6 +7,7 @@ npm install
 npm run dev        # http://localhost:4321
 npm run build      # dist/
 npm run shots      # re-capture web screenshots and convert raw captures to WebP
+npm run cv         # with dev running: print /en/cv/ and /es/cv/ to public/Andrii-Chaika-CV-*.pdf
 ```
 
 - Hosted on Vercel (https://andrii-chaika.vercel.app). `SITE` and `BASE` env vars override the public URL that QR codes encode; see `astro.config.mjs`.

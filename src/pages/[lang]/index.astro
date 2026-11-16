@@ -28,7 +28,7 @@ const [first, last] = person.name.split(' ');
         <p class="hero-lede" data-hero>{d.hero.lede}</p>
         <div class="hero-actions" data-hero>
           <a class="btn" href="#work">{d.hero.ctaWork}</a>
-          <a class="btn btn--ghost" href="#contact">{d.hero.ctaContact}</a>
+          <a class="btn btn--ghost" href={href(person.cvPdf[lang])} download>{d.hero.ctaCv}</a>
         </div>
         <ul class="hero-facts label" data-hero>
           {d.hero.facts.map((f) => <li>{f}</li>)}
@@ -124,10 +124,18 @@ const [first, last] = person.name.split(' ');
             <button class="btn btn--ghost" type="button" data-copy={person.email} data-copied={d.contact.copied}>
               {d.contact.copy}
             </button>
+            <a class="btn btn--ghost" href={href(person.cvPdf[lang])} download>{d.contact.cv}</a>
             <a class="btn btn--ghost" href={person.github} target="_blank" rel="noopener me">GitHub <Fragment set:html={icon.external} /></a>
+            {person.linkedin && (
+              <a class="btn btn--ghost" href={person.linkedin} target="_blank" rel="noopener me">LinkedIn <Fragment set:html={icon.external} /></a>
+            )}
           </div>
         </div>
         <div class="contact-process" data-reveal>
+          <h3>{d.contact.hiringTitle}</h3>
+          <p class="contact-hiring">
+            {d.contact.hiring} <a class="text-link" href={href(`${lang}/cv/`)}>{d.contact.cvLink}</a>
+          </p>
           <h3>{d.contact.processTitle}</h3>
           <ol>
             {d.contact.process.map((step) => <li>{step}</li>)}
