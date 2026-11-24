@@ -12,16 +12,16 @@ export default {
   hero: {
     role: 'Desarrollador full-stack y móvil · React Native · Java/Spring Boot',
     lede:
-      'Hago apps Android e iOS, webs y el backend que las mueve, y las termino: dos productos completos están publicados y puedes instalarlos hoy.',
+      'Hago apps Android e iOS, webs y el backend que las mueve, y las termino: dos productos completos están en producción y puedes probarlos hoy (web y APK Android).',
     ctaWork: 'Ver proyectos',
     ctaCv: 'Descargar CV',
     ctaContact: 'Escríbeme',
-    facts: ['Pamplona, España · CET', 'ES · EN · RU · UK', 'Permiso de trabajo en España (TIE)', 'Abierto a empleo y proyectos'],
+    facts: ['Pamplona, España · CET', 'ES · EN · RU · UA', 'Permiso de trabajo en España (TIE)', 'Abierto a empleo y proyectos'],
     phonesAlt: 'Capturas de SpotCheck y StyleSphere en un móvil Android',
   },
   work: {
     label: 'Proyectos',
-    title: 'Dos productos completos, de la base de datos a la tienda de apps.',
+    title: 'Dos productos completos, de la base de datos a producción.',
   },
   meta_labels: { role: 'Rol', platforms: 'Plataformas', backend: 'Backend', years: 'Años', languages: 'Idiomas' },
   projects: {

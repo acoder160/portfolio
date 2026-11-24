@@ -1,7 +1,7 @@
 ---
 import Phone from './Phone.astro';
 import Browser from './Browser.astro';
-import type { Lang, Project } from '../data/site';
+import { liveUrl, type Lang, type Project } from '../data/site';
 import { t } from '../i18n';
 import { href } from '../lib/url';
 import { icon } from '../lib/icons';
@@ -97,7 +97,7 @@ const frames = [
         <a class="btn btn--accent" href={href(`${lang}/${p.id}/`)}>
           {d.actions.apk} <Fragment set:html={icon.download} />
         </a>
-        <a class="btn btn--ghost" href={p.live.url} target="_blank" rel="noopener">
+        <a class="btn btn--ghost" href={liveUrl(p, lang)} target="_blank" rel="noopener">
           {d.actions.live} <Fragment set:html={icon.external} />
         </a>
         {p.repo ? (

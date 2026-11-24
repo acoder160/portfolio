@@ -18,16 +18,23 @@ const RELEASE = 'https://github.com/acoder160/portfolio/releases/download/v1.1.0
 
 export type ProjectId = 'spotcheck' | 'stylesphere';
 
+export const langs = ['es', 'en'] as const;
+export type Lang = (typeof langs)[number];
+
 export interface Project {
   id: ProjectId;
   name: string;
   years: string;
-  live: { url: string; label: string };
+  live: { url: string | Record<Lang, string>; label: string };
   repo?: string;
   apk: { url: string; sizeMb: number; version: string };
   phones: string[]; // public/shots/*.webp, phone captures
   browser: string[]; // public/shots/*.webp, desktop captures
   stack: string[];
+}
+
+export function liveUrl(project: Project, lang: Lang): string {
+  return typeof project.live.url === 'string' ? project.live.url : project.live.url[lang];
 }
 
 export const projects: Project[] = [
@@ -50,7 +57,13 @@ export const projects: Project[] = [
     id: 'stylesphere',
     name: 'StyleSphere',
     years: '2026',
-    live: { url: 'https://stylesphere-beta.vercel.app/es', label: 'stylesphere-beta.vercel.app' },
+    live: {
+      url: {
+        es: 'https://stylesphere-beta.vercel.app/es',
+        en: 'https://stylesphere-beta.vercel.app/en',
+      },
+      label: 'stylesphere-beta.vercel.app',
+    },
     apk: { url: `${RELEASE}/StyleSphere-1.1.0.apk`, sizeMb: 61, version: '1.1.0' },
     phones: ['ss_product', 'ss_list', 'ss_dash'],
     browser: ['web_ss_home', 'web_ss_product'],
@@ -61,6 +74,3 @@ export const projects: Project[] = [
     ],
   },
 ];
-
-export const langs = ['es', 'en'] as const;
-export type Lang = (typeof langs)[number];

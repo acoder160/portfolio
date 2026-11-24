@@ -109,10 +109,10 @@ if (!reduce) {
     const words = splitWords(el);
     gsap.from(words, {
       yPercent: 110,
-      duration: 0.9,
+      duration: 0.55,
       ease: 'expo.out',
-      stagger: 0.05,
-      scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+      stagger: 0.03,
+      scrollTrigger: { trigger: el, start: 'top 95%', once: true, fastScrollEnd: true },
     });
   });
 
@@ -121,19 +121,24 @@ if (!reduce) {
   document.querySelectorAll<HTMLElement>('[data-reveal-group]').forEach((group) => {
     const items = [...group.querySelectorAll<HTMLElement>('[data-reveal]')];
     items.forEach((i) => revealed.add(i));
-    gsap.set(items, { autoAlpha: 0, y: 24 });
+    gsap.set(items, { autoAlpha: 0, y: 14 });
     ScrollTrigger.batch(items, {
-      start: 'top 88%',
+      start: 'top 95%',
       once: true,
-      onEnter: (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.06 }),
+      onEnter: (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.04 }),
     });
   });
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
     if (revealed.has(el)) return;
     gsap.fromTo(
       el,
-      { autoAlpha: 0, y: 24 },
-      { autoAlpha: 1, y: 0, duration: 0.75, scrollTrigger: { trigger: el, start: 'top 88%', once: true } },
+      { autoAlpha: 0, y: 14 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.45,
+        scrollTrigger: { trigger: el, start: 'top 95%', once: true, fastScrollEnd: true },
+      },
     );
   });
 

@@ -1,6 +1,6 @@
 // Plain-text summary for AI assistants and recruiter tools (llms.txt convention).
 // Built from the same i18n text as the site, so it never drifts.
-import { person, projects } from '../data/site';
+import { liveUrl, person, projects } from '../data/site';
 import { t } from '../i18n';
 import { absolute } from '../lib/url';
 
@@ -37,7 +37,7 @@ export function GET() {
         '',
         `### ${p.name} (${p.years.replace(' — ', '–')})`,
         c.sub,
-        `Live: ${p.live.url} · Code: ${p.repo ?? cv.privateCode} · Case study: ${absolute(`en/#${p.id}`)}`,
+        `Live: ${liveUrl(p, 'en')} · Code: ${p.repo ?? cv.privateCode} · Case study: ${absolute(`en/#${p.id}`)}`,
         `Stack: ${p.stack.join(', ')}`,
         ...c.bullets.map((b) => `- ${b}`),
       ];

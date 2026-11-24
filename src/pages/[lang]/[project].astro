@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Phone from '../../components/Phone.astro';
-import { langs, projects, type Lang, type ProjectId } from '../../data/site';
+import { langs, liveUrl, projects, type Lang, type ProjectId } from '../../data/site';
 import { t } from '../../i18n';
 import { href, absolute, qrSvg } from '../../lib/url';
 import { icon } from '../../lib/icons';
@@ -31,7 +31,7 @@ const qr = await qrSvg(absolute(`${lang}/${id}/`));
     description: c.lede,
     applicationCategory: id === 'spotcheck' ? 'TravelApplication' : 'ShoppingApplication',
     operatingSystem: 'Android, iOS, Web',
-    url: p.live.url,
+    url: liveUrl(p, lang),
     downloadUrl: p.apk.url,
     softwareVersion: p.apk.version,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
@@ -69,7 +69,7 @@ const qr = await qrSvg(absolute(`${lang}/${id}/`));
 
         <div class="apk-extra">
           <p><strong>Demo.</strong> {a.demo[id]}</p>
-          <p>{a.webAlt} <a class="text-link" href={p.live.url} target="_blank" rel="noopener">{p.live.label}</a></p>
+          <p>{a.webAlt} <a class="text-link" href={liveUrl(p, lang)} target="_blank" rel="noopener">{p.live.label}</a></p>
           <p>{a.note}</p>
         </div>
       </div>

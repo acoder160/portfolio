@@ -3,7 +3,7 @@
 // (paper sheet, left-hand section rail, paint stripe) is CSS only, so parsers still read one column.
 // Also the source of the PDFs: npm run cv → public/Andrii-Chaika-CV-*.pdf (print styles below).
 import Base from '../../layouts/Base.astro';
-import { langs, person, projects, type Lang } from '../../data/site';
+import { langs, liveUrl, person, projects, type Lang } from '../../data/site';
 import { t } from '../../i18n';
 import { href } from '../../lib/url';
 
@@ -74,7 +74,7 @@ const years = (y: string) => y.replace(' — ', ' – ');
                 <p class="cv-meta"><span>{x.dates}</span> <span>{c ? c.sub : x.place}</span></p>
                 {p && c && (
                   <p class="cv-links">
-                    <a href={p.live.url}>{cv.live}</a>
+                    <a href={liveUrl(p, lang)}>{cv.live}</a>
                     {' · '}
                     {cv.code}: {p.repo ? <a href={p.repo}>{strip(p.repo)}</a> : cv.privateCode}
                   </p>
@@ -96,7 +96,7 @@ const years = (y: string) => y.replace(' — ', ' – ');
                 <h3><span class="cv-pname">{p.name}</span></h3>
                 <p class="cv-meta"><span>{years(p.years)}</span> <span>{c.sub}</span></p>
                 <p class="cv-links">
-                  <a href={p.live.url}>{cv.live}</a>
+                  <a href={liveUrl(p, lang)}>{cv.live}</a>
                   {' · '}
                   {cv.code}: {p.repo ? <a href={p.repo}>{strip(p.repo)}</a> : cv.privateCode}
                 </p>

@@ -14,16 +14,16 @@ const en: typeof es = {
   hero: {
     role: 'Full-stack & mobile developer · React Native · Java/Spring Boot',
     lede:
-      'I build Android and iOS apps, websites and the backend that runs them, and I finish them: two complete products are live and you can install them today.',
+      'I build Android and iOS apps, websites and the backend that runs them, and I finish them: two complete products are live and you can try them today (web and Android APK).',
     ctaWork: 'See the work',
     ctaCv: 'Download CV',
     ctaContact: 'Get in touch',
-    facts: ['Pamplona, Spain · CET', 'ES · EN · RU · UK', 'Authorized to work in Spain (TIE)', 'Open to roles and projects'],
+    facts: ['Pamplona, Spain · CET', 'ES · EN · RU · UA', 'Authorized to work in Spain (TIE)', 'Open to roles and projects'],
     phonesAlt: 'SpotCheck and StyleSphere screenshots on an Android phone',
   },
   work: {
     label: 'Work',
-    title: 'Two complete products, from the database to the app store.',
+    title: 'Two complete products, from the database to production.',
   },
   meta_labels: { role: 'Role', platforms: 'Platforms', backend: 'Backend', years: 'Years', languages: 'Languages' },
   projects: {
@@ -173,7 +173,7 @@ const en: typeof es = {
       {
         role: 'Freelance Full-stack & Mobile Developer',
         org: 'StyleSphere (private client)',
-        url: 'https://stylesphere-beta.vercel.app/es',
+        url: 'https://stylesphere-beta.vercel.app/en',
         place: 'Remote',
         dates: 'Jun 2026 – Aug 2026',
         project: 'stylesphere',
